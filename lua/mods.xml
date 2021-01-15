@@ -15,6 +15,8 @@
 end)"
 Type = "ActorFrame"
 ><children>
+	<Layer File = "mang/mang.xml"/>
+	<Layer File = "xero/xero.xml"/>
 	<Layer Type = "ActorProxy" Name = "PC[1]" />
 	<Layer Type = "ActorProxy" Name = "PC[2]" />
 	<Layer Type = "ActorProxy" Name = "PJ[1]" />

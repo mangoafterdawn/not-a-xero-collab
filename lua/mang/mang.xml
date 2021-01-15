@@ -1,0 +1,38 @@
+<Mods LoadCommand = "%xero(function(self)
+	-- your code goes here here:
+-- a bunch of stuff so that i can tab to them
+--[[The following eases are transient eases:
+
+bounce tri bell pop tap spike pulse spike inverse
+popElastic[damping_factor][oscillation_speed]
+tapElastic[damping_factor][oscillation_speed]
+pulseElastic[damping_factor][oscillation_speed]
+impulse [damp]
+
+The following eases are not transient:
+
+instant linear
+inQuad outQuad inOutQuad
+inCubic outCubic inOutCubic
+inQuart outQuart inOutQuart
+inQuint outQuint inOutQuint
+inExpo outExpo inOutExpo
+inCirc outCirc inOutCirc
+inElastic outElastic inOutElastic
+inBack outBack inOutBack
+inBounce outBounce inOutBounce
+inSine outSine inOutSine]]--
+
+local pi,pie=math.pi,math.pi*100
+
+function rad(deg)
+	return math.rad(deg) * 100
+end
+--local inv=2*(i%2)-1
+--local switch=(i+1)%2
+
+
+
+end)"
+Type = "ActorFrame"
+/>
