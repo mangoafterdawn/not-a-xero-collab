@@ -66,8 +66,9 @@
 		masksprite:zoom(0.995)
 		masksprite:SetTextureFiltering(true)
 	end}
+	ease {58, 81, m=e, linear, 0.6, 'mask'}
+	set {84, 0, 'mask'}
 
-	ease {58, 81, m=e, linear, 0.7, 'mask'}
 
 	set {0,
 		100, 'stealth',
