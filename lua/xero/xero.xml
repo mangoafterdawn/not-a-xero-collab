@@ -1,6 +1,11 @@
 <Mods LoadCommand = "%xero(function(self)
 	-- your code goes here here:
-	set {0, 100, 'stealth', 100, 'dark'}
+	set {0,
+		100, 'stealth',
+		100, 'dark',
+		-100, 'invert',
+		100, 'flip',
+	}
 	add {0, 0, instant, -128, 'xpos', plr=1}
 	add {0, 0, instant, 128, 'xpos', plr=2}
 	ease {0, 27.5, bell, -100, 'tiny0'}
@@ -8,7 +13,27 @@
 	ease {0, 25.5, bell, -100, 'tiny2'}
 	ease {0, 24.5, bell, -100, 'tiny3'}
 	local pn = 1
-	for i, v in P[1]:GetNoteData(0, 27) do
+	for i, v in {
+		{0, 0},
+		{1.5, 3},
+		{2.5, 2},
+		{3, 1},
+		{13.5, 3},
+		{14, 1},
+		{15.5, 2},
+		{16.5, 3},
+		{17, 1},
+		{18.5, 0},
+		{19.5, 2},
+		{20.25, 1},
+		{21, 0},
+		{22, 2},
+		{22.5, 3},
+		{23.25, 0},
+		{24, 1},
+		{25.5, 1},
+		{27, 3},
+	} do
 		ease {v[1], 4, pop, -30, 'dark'..v[2], -100, 'stealth'..v[2], plr = pn}
 		pn = 3 - pn
 	end
