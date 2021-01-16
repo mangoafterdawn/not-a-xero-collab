@@ -21,22 +21,26 @@
 			quad:cropbottom(0)
 			quad:rotationz(0)
 			quad:diffuse(1, 1, 1, 1)
-			quad:blend('normal')
+			quad:blend 'normal'
 			table.insert(spritepool, quad)
 		end}
 		return funcQ
 	end
 
 	funcQ {0, 27.5, function(quad)
-		print(quad)
 		quad:diffusealpha(0.5)
 		quad:rotationz(2)
 	end}
 	{0, 27.5, function(quad)
-		print(quad)
-		quad:blend('invertdest')
-		quad:y(scy+5)
-		quad:rotationz(-1)
+		quad:blend 'invertdest'
+		quad:y(scy+20)
+		quad:rotationz(-4)
+	end}
+	{0, 27.5, function(quad)
+		quad:diffuse(1, 0, 0, 1)
+		quad:blend 'add'
+		quad:x(scx+5)
+		quad:cropleft(0.5)
 	end}
 
 	alias {'confusionzoffset', 'confusionoffset'}
