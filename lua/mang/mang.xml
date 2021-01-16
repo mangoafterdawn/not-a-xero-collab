@@ -95,21 +95,84 @@ bam = {
 	{58.000,2,1},
 }
 
+8bam = {
+	{60.000,3,4,length=0.500},
+	{60.500,0,1},
+	{61.000,1,1},
+	{61.500,0,1},
+	{62.000,3,1},
+	{62.500,0,4,length=0.500},
+	{63.000,3,1},
+	{63.500,1,1},
+	{64.000,2,2,length=0.250},
+	{64.500,0,2,length=0.250},
+	{65.000,3,2,length=0.250},
+	{65.500,1,1},
+	{66.000,3,2,length=0.250},
+	{66.500,2,1},
+	{67.000,1,4,length=0.500},
+	{67.500,0,1},
+	{68.000,2,1},
+	{68.500,1,2,length=0.250},
+	{69.000,2,2,length=0.250},
+	{69.500,0,4,length=0.500},
+	{70.000,3,2,length=0.250},
+	{70.500,1,2,length=0.250},
+	{71.000,2,2,length=0.250},
+	{71.500,0,2,length=0.250},
+	{72.000,1,2,length=0.250},
+	{72.500,2,1},
+	{73.000,1,2,length=0.250},
+	{73.500,0,2,length=0.250},
+	{74.000,3,4,length=0.500},
+	{74.500,2,1},
+	{75.000,1,1},
+	{75.500,0,2,length=0.250},
+	{76.000,2,1},
+	{76.500,1,4,length=0.500},
+	{77.000,2,1},
+	{77.500,0,1},
+	{78.000,3,4,length=0.500},
+	{78.500,1,2,length=0.250},
+	{79.000,2,2,length=0.250},
+	{79.500,0,1},
+	{80.000,1,4,length=0.500},
+	{80.500,2,1},
+	{81.000,1,2,length=0.250},
+	{81.500,0,4,length=0.500},
+	{82.000,2,1},
+}
+
 --local inv=2*(i%2)-1
 --local switch=(i+1)%2
 setdefault{
-	80,'blendalphacd'
+	0,'bumpyxoffset',
+	1000,'bumpyzoffset',
+plr=1}
+setdefault{
+	1000,'bumpyxoffset',
+	0,'bumpyzoffset',
+plr=2}
+setdefault{
+	80,'blendalphacd',
+	0.1,'rrotz',
+	0.5,'rskewy',
+	0.5,'rskewx',
+	100,'rzoom',
+	1000,'bumpyxperiod',
+	1000,'bumpyzperiod',
 }
 definemod{'blendalphacd','opacitycd',function(amt,opct)
 	aftsprite1:diffusealpha(amt/100)
 	exclusionsprite:GetShader():uniform1f('opacity',opct)
 end}
-definemod{'rskewx','rskewy','rrotx','rroty','rrotz',function(rsx,rsy,rx,ry,rz)
+definemod{'rskewx','rskewy','rrotx','rroty','rrotz','rzoom',function(rsx,rsy,rx,ry,rz,rzm)
 	aftsprite1:skewx(rsx/100)
 	aftsprite1:skewy(rsy/100)
 	aftsprite1:rotationx(rx)
 	aftsprite1:rotationy(ry)
 	aftsprite1:rotationz(rz)
+	aftsprite1:zoom(rzm/100)
 end}
 func{27,function()
 	aftsprite1:hidden(0)
@@ -122,8 +185,8 @@ for i,v in ipairs(bam) do
 			ease{v[1]+k*0.1666,0.5,flip(outExpo),
 				-100,'tiny',
 				0,'rskewx',
-				-100,'rskewy',
-				-2,'rrotz',
+				-50*inv,'rskewy',
+				2,'rrotz',
 			}
 			if k==3 then
 				add{v[1]+k*0.1666,1,impulse[2],
@@ -144,8 +207,6 @@ for i,v in ipairs(bam) do
 		ease{v[1],1,flip(outExpo),
 			-200,'tiny',
 			300,'arrowpathgirth',
-			0,'rskewx',
-			-100,'rskewy',
 		}
 		ease{v[1]-0.5,1,inverse,
 			20*inv,'alternate',
@@ -155,14 +216,76 @@ for i,v in ipairs(bam) do
 		}
 		ease{v[1],1,impulse[0.5],
 			-900,'tinyz',
-			90,'arrowpath',
+			25,'arrowpath',
 		}
 	end
 end
-ease{27,84-27,inQuint,
+ease{27,84-27,inOutQuad,
 	100,'blendalphacd',
 	1,'opacitycd',
 }
+--xero's feature request
+
+swap{46,0.5,outExpo,'ludr'}
+swap{49,0.5,outExpo,'ldur'}
+
+--58 to 84
+for i=0,12 do
+	local switch=(i+1)%2
+	local inv=2*(i%2)-1
+	add{58+i*2,2,inOutSine,
+		0*inv,'rskewy',
+		5*(i^2/26)*inv,'rskewx',
+		4*inv,'rrotx',
+	}
+	add{58+i*2+1,2,inOutSine,
+		5*(i^2/26)*inv,'rskewy',
+		0*inv,'rskewx',
+		-16*inv,'rrotx',
+	}
+
+	add{58+i*2,2,pop,
+		500*inv,'arrowpathgirth',
+	plr=1}
+	add{58+i*2,2,inOutSine,
+		10*inv,'bumpyx',
+		-10*inv,'bumpyz',
+	plr=1}
+	
+	add{58+i*2+1,2,pop,
+		500*inv,'arrowpathgirth',
+	plr=2}
+	add{58+i*2,2,inOutSine,
+		-10*inv,'bumpyx',
+		10*inv,'bumpyz',
+	plr=2}
+end
+ease{58,26,inOutSine,
+	-200,'bumpyx',
+	200,'bumpyz',
+
+	200,'bumpyzperiod',
+	200,'bumpyxperiod',
+
+	50,'arrowpath',
+plr=1}
+ease{58,26,inOutSine,
+	200,'bumpyx',
+	-200,'bumpyz',
+
+	200,'bumpyzperiod',
+	200,'bumpyxperiod',
+
+	50,'arrowpath',
+plr=2}
+ease{82,2,inOutQuad,
+	0,'bumpyx',
+	0,'bumpyz',
+}
+
+for i,v in ipairs(8bam) do
+
+end
 
 end)"
 Type = "ActorFrame"
