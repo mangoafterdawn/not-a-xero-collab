@@ -1,7 +1,7 @@
 <Mods LoadCommand = "%xero(function(self)
--- your code goes here here:
+	-- your code goes here here:
 
 
 end)"
-Type = "ActorFrame"
+	Type = "ActorFrame"
 />
