@@ -305,6 +305,11 @@ for i,v in ipairs(ebam) do
 	end
 end
 
+func{84,function()
+
+
+end}
+
 end)"
 Type = "ActorFrame"
 />
