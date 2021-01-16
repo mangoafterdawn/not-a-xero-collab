@@ -302,11 +302,20 @@ for i,v in ipairs(ebam) do
 			-100,'tiny',
 			-20*inv,'alternate',
 		}
+		for k=0,3 do
+			ease{v[1]+k*0.166/2,0.166/2,flip(outExpo),
+				50,'stealth',
+				300*inv,'noteskewx',
+			plr=2}
+		end
+		swap{v[1],0.166/2,outExpo,'ldur',plr=2}
+		swap{v[1]+0.166/2,0.166/2,outExpo,'rldu',plr=2}
+		swap{v[1]+(0.166/2*2),0.166/2,outExpo,'urld',plr=2}
+		swap{v[1]+(0.166/2*3),0.166/2,outExpo,'ldur',plr=2}
 	end
 end
 
 func{84,function()
-
 
 end}
 
