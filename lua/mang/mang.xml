@@ -96,6 +96,7 @@ bam = {
 }
 
 ebam = {
+	{58,3,4,length=0.500},
 	{60.000,3,4,length=0.500},
 	{60.500,0,1},
 	{61.000,1,1},
@@ -282,6 +283,27 @@ ease{82,2,inOutQuad,
 	0,'bumpyx',
 	0,'bumpyz',
 }
+
+for i,v in ipairs(ebam) do
+	local inv=2*(i%2)-1
+	if v[3]==4 then
+		for k=0,3 do
+			ease{v[1]+k*0.1666,0.5,flip(outExpo),
+				-100,'tiny',
+				0,'rskewx',
+				-20*inv,'rskewy',
+				2,'rrotz',
+				50,'invert',
+				20*inv,'alternate',
+			}
+		end
+	elseif v[3]==2 then
+		ease{v[1],1,flip(outExpo),
+			-100,'tiny',
+			-20*inv,'alternate',
+		}
+	end
+end
 
 end)"
 Type = "ActorFrame"
