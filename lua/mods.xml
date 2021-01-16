@@ -10,8 +10,8 @@
 		P[pn]:hidden(1)
 	end
 	-- your code goes here here:
-	setdefault{
-		2,'xmod'
+	setdefault {
+		2, 'xmod'
 	}
 
 
@@ -24,6 +24,13 @@
 	exclusionsprite:GetShader():uniformTexture('sampler1', overlay:GetTexture())
 	exclusionsprite:SetTexture(exclusionaft:GetTexture())
 	overlay:hidden(1)
+
+	for i = 1, #spritepool do
+		sprite(spritepool[i])
+		spritepool[i]:hidden(1)
+		spritepool[i]:SetTexture(aft1:GetTexture())
+	end
+
 end)"
 
 Type = "ActorFrame"
@@ -58,4 +65,30 @@ Type = "ActorFrame"
 		InitCommand="%xero.aft"
 		Name="aft1"
 	/>
+	<Layer Name = "spritepool[1]" Type = "Sprite" />
+	<Layer Name = "spritepool[2]" Type = "Sprite" />
+	<Layer Name = "spritepool[3]" Type = "Sprite" />
+	<Layer Name = "spritepool[4]" Type = "Sprite" />
+	<Layer Name = "spritepool[5]" Type = "Sprite" />
+	<Layer Name = "spritepool[6]" Type = "Sprite" />
+	<Layer Name = "spritepool[7]" Type = "Sprite" />
+	<Layer Name = "spritepool[8]" Type = "Sprite" />
+	<Layer Name = "spritepool[9]" Type = "Sprite" />
+	<Layer Name = "spritepool[10]" Type = "Sprite" />
+	<Layer Name = "spritepool[11]" Type = "Sprite" />
+	<Layer Name = "spritepool[12]" Type = "Sprite" />
+	<Layer Name = "spritepool[13]" Type = "Sprite" />
+	<Layer Name = "spritepool[14]" Type = "Sprite" />
+	<Layer Name = "spritepool[15]" Type = "Sprite" />
+	<Layer Name = "spritepool[16]" Type = "Sprite" />
+	<Layer Name = "spritepool[17]" Type = "Sprite" />
+	<Layer Name = "spritepool[18]" Type = "Sprite" />
+	<Layer Name = "spritepool[19]" Type = "Sprite" />
+	<Layer Name = "spritepool[20]" Type = "Sprite" />
+	<Layer Name = "spritepool[21]" Type = "Sprite" />
+	<Layer Name = "spritepool[22]" Type = "Sprite" />
+	<Layer Name = "spritepool[23]" Type = "Sprite" />
+	<Layer Name = "spritepool[24]" Type = "Sprite" />
+	<Layer Name = "spritepool[25]" Type = "Sprite" />
+
 </children></Mods>
