@@ -1,17 +1,28 @@
 <Mods LoadCommand = "%xero(function(self)
+	alias {'confusionzoffset', 'confusionoffset'}
 	-- your code goes here here:
+
 	set {0,
 		100, 'stealth',
 		100, 'dark',
 		-100, 'invert',
 		100, 'flip',
+		100, 'reverse',
+		314, 'confusionoffset',
+		-180, 'proxyrotz',
 	}
+
 	add {0, 0, instant, -128, 'xpos', plr=1}
 	add {0, 0, instant, 128, 'xpos', plr=2}
+
 	ease {0, 27.5, bell, -100, 'tiny0'}
 	ease {0, 26.5, bell, -100, 'tiny1'}
 	ease {0, 25.5, bell, -100, 'tiny2'}
 	ease {0, 24.5, bell, -100, 'tiny3'}
+
+	ease {0, 27.5, inOutQuad, 0, 'confusionoffset', 0, 'proxyrotz'}
+	ease {0, 27.5, inOutQuad, 0, 'reverse'}
+
 	local pn = 1
 	for i, v in {
 		{0, 0},
@@ -38,6 +49,7 @@
 		pn = 3 - pn
 	end
 	reset {25, 4, inOutQuad}
+
 end)"
 	Type = "ActorFrame"
 />

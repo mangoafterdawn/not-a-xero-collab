@@ -16,6 +16,8 @@
 		100, 'stealthpastreceptors',
 		100, 'modtimer',
 		100, 'halgun',
+		50, 'arrowpathdrawsizeback',
+		50, 'drawsizeback',
 	}
 
 
@@ -39,24 +41,46 @@
 	definemod {'xpos', function(pos, pn) P[pn]:x(pos) end}
 	definemod {'ypos', function(pos, pn) P[pn]:y(pos) end}
 	definemod {'zpos', function(pos, pn) P[pn]:z(pos) end}
+	
+	definemod {'proxyx', function(pos) proxyframe1:x(pos + scx) end}
+	definemod {'proxyy', function(pos) proxyframe1:y(pos + scy) end}
+	definemod {'proxyz', function(pos) proxyframe1:z(pos + 0) end}
+	definemod {'proxyrotx', function(pos) proxyframe2:rotationx(pos) end}
+	definemod {'proxyroty', function(pos) proxyframe2:rotationy(pos) end}
+	definemod {'proxyrotz', function(pos) proxyframe2:rotationz(pos) end}
+	proxyframe3:xyz(-scx, -scy, 0)
 
+	aquad:SetWidth(sw)
+	aquad:SetHeight(sh)
+	aquad:xy(scx, scy)
+	aquad:diffuse(0, 0, 0, 1)
 end)"
-
 Type = "ActorFrame"
 ><children>
 	<Layer Type = "Quad" Name = "aquad" />
 	<Layer
 		Type="Sprite"
 		InitCommand="%xero.sprite"
-		Name="aftsprite1"/>
+		Name="aftsprite1"
+	/>
+
 	<Layer File = "mang/mang.xml"/>
 	<Layer File = "xero/xero.xml"/>
+
+	<Layer Type = "ActorFrame" Name = "proxyframe1"><children>
+		<Layer Type = "ActorFrame" Name = "proxyframe2"><children>
+			<Layer Type = "ActorFrame" Name = "proxyframe3"><children>
+				<Layer Type = "ActorProxy" Name = "PP[1]" />
+				<Layer Type = "ActorProxy" Name = "PP[2]" />
+			</children></Layer>
+		</children></Layer>
+	</children></Layer>
+
 	<Layer Type = "ActorProxy" Name = "PC[1]" />
 	<Layer Type = "ActorProxy" Name = "PC[2]" />
 	<Layer Type = "ActorProxy" Name = "PJ[1]" />
 	<Layer Type = "ActorProxy" Name = "PJ[2]" />
-	<Layer Type = "ActorProxy" Name = "PP[1]" />
-	<Layer Type = "ActorProxy" Name = "PP[2]" />
+
 	<Layer File = "dripma.jpg" Name = "overlay" />
 	<Layer
 		Type="ActorFrameTexture"
