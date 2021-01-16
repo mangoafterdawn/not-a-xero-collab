@@ -95,7 +95,7 @@ bam = {
 	{58.000,2,1},
 }
 
-8bam = {
+ebam = {
 	{60.000,3,4,length=0.500},
 	{60.500,0,1},
 	{61.000,1,1},
@@ -282,10 +282,6 @@ ease{82,2,inOutQuad,
 	0,'bumpyx',
 	0,'bumpyz',
 }
-
-for i,v in ipairs(8bam) do
-
-end
 
 end)"
 Type = "ActorFrame"
