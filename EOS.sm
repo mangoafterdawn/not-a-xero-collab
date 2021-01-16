@@ -6,18 +6,18 @@
 #ARTISTTRANSLIT:;
 #GENRE:;
 #CREDIT:;
-#MUSIC:Frums - vignette - 18 END OF SYSTEM.ogg;
+#MUSIC:EOS.ogg;
 #BANNER:;
 #BACKGROUND:;
 #CDTITLE:;
 #SAMPLESTART:0.000;
 #SAMPLELENGTH:0.000;
 #SELECTABLE:YES;
-#OFFSET:0.000;
+#OFFSET:-1.989;
 #BPMS:0.000=180.000;
 #STOPS:;
 #BGCHANGES:;
-#FGCHANGES:;
+#FGCHANGES:0.000=template/main.xml=1.000=0=0=1;
 //--------------- dance-single - mang + XeroOl ----------------
 #NOTES:
      dance-single:
