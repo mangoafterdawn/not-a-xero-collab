@@ -57,6 +57,18 @@
 
 	alias {'confusionzoffset', 'confusionoffset'}
 
+	set {0, .5, 'mask'}
+	func{22, 4, inOutCubic, 1, 0, function(p) masksprite:diffusealpha(p) end}
+	set {26, 0, 'mask'}
+	func{26, function()
+		masksprite:diffusealpha(1)
+		masksprite:rotationz(0)
+		masksprite:zoom(0.995)
+		masksprite:SetTextureFiltering(true)
+	end}
+
+	ease {58, 81, m=e, linear, 0.7, 'mask'}
+
 	set {0,
 		100, 'stealth',
 		100, 'dark',

@@ -33,9 +33,10 @@
 	
 	masksprite:SetTexture(exclusionaft:GetTexture())
 	masksprite:GetShader():uniformTexture('sampler1', maskimage:GetTexture())
+	definemod {'mask', function(p) masksprite:hidden(p == 0 and 1 or 0) masksprite:GetShader():uniform1f('limit', p) end}
 	sprite(masksprite)
 	masksprite:rotationz(120)
-	func{24, 2, inOutExpo, 120, 1.0, function(p) masksprite:rotationz(p) end}
+	masksprite:SetTextureFiltering(false)
 	maskimage:hidden(1)
 
 	for i = 1, #spritepool do
@@ -67,7 +68,7 @@ Type = "ActorFrame"
 	<Layer File = "mang/mang.xml"/>
 	<Layer File = "xero/xero.xml"/>
 	<Layer File = "dripma.jpg" Name = "overlay"/>
-	<Layer File = "over2.png" Name = "maskimage"/>
+	<Layer File = "noise.png" Name = "maskimage"/>
 
 
 	<!-- start of drawing -->
