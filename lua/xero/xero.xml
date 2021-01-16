@@ -1,4 +1,9 @@
 <Mods LoadCommand = "%xero(function(self)
+	local spritepoolindex = {}
+	for k, v in ipairs(spritepool) do
+		spritepoolindex[v] = k
+	end
+	local function spriteordering(a, b) return spritepoolindex[a] < spritepoolindex[b] end
 	function funcQ(t)
 		local quad
 		func {t[1], function()
@@ -23,9 +28,15 @@
 			quad:diffuse(1, 1, 1, 1)
 			quad:blend 'normal'
 			table.insert(spritepool, quad)
+			table.sort(spritepool, spriteordering)
 		end}
 		return funcQ
 	end
+	
+	function cropconvert(n)
+		return (n * 640 - 320 + scx) / sw
+	end
+
 
 	funcQ {0, 27.5, function(quad)
 		quad:diffusealpha(0.5)
@@ -40,6 +51,7 @@
 		quad:diffuse(1, 0, 0, 1)
 		quad:blend 'add'
 		quad:x(scx+5)
+		quad:y(scy+20)
 		quad:cropleft(0.5)
 	end}
 
@@ -92,6 +104,14 @@
 		pn = 3 - pn
 	end
 	reset {25, 4, inOutQuad}
+	for i = 1, 4 do
+		local i = i
+		funcQ {82.75 + i * .25, 1.25 - i * .25, function(quad)
+			quad:x(scx + 64 * i)
+			quad:cropleft(cropconvert(0.35))
+			quad:cropright(cropconvert(0.45))
+		end}
+	end
 
 end)"
 	Type = "ActorFrame"
