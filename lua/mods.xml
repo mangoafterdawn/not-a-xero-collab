@@ -31,11 +31,12 @@
 	exclusionsprite:SetTexture(exclusionaft:GetTexture())
 	overlay:hidden(1)
 	
-	masksprite:GetShader():uniformTexture('sampler1', maskimage:GetTexture())
 	masksprite:SetTexture(exclusionaft:GetTexture())
+	masksprite:GetShader():uniformTexture('sampler1', maskimage:GetTexture())
 	sprite(masksprite)
+	masksprite:rotationz(120)
+	func{24, 2, inOutExpo, 120, 1.0, function(p) masksprite:rotationz(p) end}
 	maskimage:hidden(1)
-	-- masksprite:hidden(1)
 
 	for i = 1, #spritepool do
 		sprite(spritepool[i])
@@ -66,7 +67,7 @@ Type = "ActorFrame"
 	<Layer File = "mang/mang.xml"/>
 	<Layer File = "xero/xero.xml"/>
 	<Layer File = "dripma.jpg" Name = "overlay"/>
-	<Layer File = "masking.png" Name = "maskimage"/>
+	<Layer File = "over2.png" Name = "maskimage"/>
 
 
 	<!-- start of drawing -->
@@ -91,14 +92,9 @@ Type = "ActorFrame"
 	<Layer Type = "ActorProxy" Name = "PJ[1]"/>
 	<Layer Type = "ActorProxy" Name = "PJ[2]"/>
 
-	<Layer File = "../masking.png" Name = "masksprite" Frag = "shaders/mask.frag"/>
+	<Layer Type = "Sprite" Name = "masksprite" Frag = "shaders/mask.frag"/>
 
-	<Layer
-		Type="ActorFrameTexture"
-		InitCommand="%xero.aft"
-		Name="exclusionaft"
-	/>
-
+	<Layer Type = "ActorFrameTexture" InitCommand = "%xero.aft" Name = "exclusionaft"/>
 	<Layer
 		Type="Sprite"
 		Frag="shaders/exclusion.frag"
