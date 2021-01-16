@@ -107,9 +107,9 @@
 	for i = 1, 4 do
 		local i = i
 		funcQ {82.75 + i * .25, 1.25 - i * .25, function(quad)
-			quad:x(scx + 64 * i)
-			quad:cropleft(cropconvert(0.35))
-			quad:cropright(cropconvert(0.45))
+			quad:x(scx - 64 * i)
+			quad:cropleft(cropconvert(0.55))
+			quad:cropright(cropconvert(0.35))
 		end}
 	end
 

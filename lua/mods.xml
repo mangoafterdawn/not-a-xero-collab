@@ -30,6 +30,12 @@
 	exclusionsprite:GetShader():uniformTexture('sampler1', overlay:GetTexture())
 	exclusionsprite:SetTexture(exclusionaft:GetTexture())
 	overlay:hidden(1)
+	
+	masksprite:GetShader():uniformTexture('sampler1', maskimage:GetTexture())
+	masksprite:SetTexture(exclusionaft:GetTexture())
+	sprite(masksprite)
+	maskimage:hidden(1)
+	-- masksprite:hidden(1)
 
 	for i = 1, #spritepool do
 		sprite(spritepool[i])
@@ -57,71 +63,59 @@
 end)"
 Type = "ActorFrame"
 ><children>
-	<Layer Type = "Quad" Name = "aquad" />
+	<Layer File = "mang/mang.xml"/>
+	<Layer File = "xero/xero.xml"/>
+	<Layer File = "dripma.jpg" Name = "overlay"/>
+	<Layer File = "masking.png" Name = "maskimage"/>
+
+
+	<!-- start of drawing -->
+	<Layer Type = "Quad" Name = "aquad"/>
 	<Layer
 		Type="Sprite"
 		InitCommand="%xero.sprite"
 		Name="aftsprite1"
 	/>
 
-	<Layer File = "mang/mang.xml"/>
-	<Layer File = "xero/xero.xml"/>
-
 	<Layer Type = "ActorFrame" Name = "proxyframe1"><children>
 		<Layer Type = "ActorFrame" Name = "proxyframe2"><children>
 			<Layer Type = "ActorFrame" Name = "proxyframe3"><children>
-				<Layer Type = "ActorProxy" Name = "PP[1]" />
-				<Layer Type = "ActorProxy" Name = "PP[2]" />
+				<Layer Type = "ActorProxy" Name = "PP[1]"/>
+				<Layer Type = "ActorProxy" Name = "PP[2]"/>
 			</children></Layer>
 		</children></Layer>
 	</children></Layer>
 
-	<Layer Type = "ActorProxy" Name = "PC[1]" />
-	<Layer Type = "ActorProxy" Name = "PC[2]" />
-	<Layer Type = "ActorProxy" Name = "PJ[1]" />
-	<Layer Type = "ActorProxy" Name = "PJ[2]" />
+	<Layer Type = "ActorProxy" Name = "PC[1]"/>
+	<Layer Type = "ActorProxy" Name = "PC[2]"/>
+	<Layer Type = "ActorProxy" Name = "PJ[1]"/>
+	<Layer Type = "ActorProxy" Name = "PJ[2]"/>
 
-	<Layer File = "dripma.jpg" Name = "overlay" />
+	<Layer File = "../masking.png" Name = "masksprite" Frag = "shaders/mask.frag"/>
+
 	<Layer
 		Type="ActorFrameTexture"
 		InitCommand="%xero.aft"
 		Name="exclusionaft"
 	/>
+
 	<Layer
 		Type="Sprite"
 		Frag="shaders/exclusion.frag"
 		InitCommand="%xero.sprite"
 		Name="exclusionsprite"
 	/>
+
 	<Layer
 		Type="ActorFrameTexture"
 		InitCommand="%xero.aft"
 		Name="aft1"
 	/>
-	<Layer Name = "spritepool[1]" Type = "Sprite" />
-	<Layer Name = "spritepool[2]" Type = "Sprite" />
-	<Layer Name = "spritepool[3]" Type = "Sprite" />
-	<Layer Name = "spritepool[4]" Type = "Sprite" />
-	<Layer Name = "spritepool[5]" Type = "Sprite" />
-	<Layer Name = "spritepool[6]" Type = "Sprite" />
-	<Layer Name = "spritepool[7]" Type = "Sprite" />
-	<Layer Name = "spritepool[8]" Type = "Sprite" />
-	<Layer Name = "spritepool[9]" Type = "Sprite" />
-	<Layer Name = "spritepool[10]" Type = "Sprite" />
-	<Layer Name = "spritepool[11]" Type = "Sprite" />
-	<Layer Name = "spritepool[12]" Type = "Sprite" />
-	<Layer Name = "spritepool[13]" Type = "Sprite" />
-	<Layer Name = "spritepool[14]" Type = "Sprite" />
-	<Layer Name = "spritepool[15]" Type = "Sprite" />
-	<Layer Name = "spritepool[16]" Type = "Sprite" />
-	<Layer Name = "spritepool[17]" Type = "Sprite" />
-	<Layer Name = "spritepool[18]" Type = "Sprite" />
-	<Layer Name = "spritepool[19]" Type = "Sprite" />
-	<Layer Name = "spritepool[20]" Type = "Sprite" />
-	<Layer Name = "spritepool[21]" Type = "Sprite" />
-	<Layer Name = "spritepool[22]" Type = "Sprite" />
-	<Layer Name = "spritepool[23]" Type = "Sprite" />
-	<Layer Name = "spritepool[24]" Type = "Sprite" />
-	<Layer Name = "spritepool[25]" Type = "Sprite" />
+
+	<Layer Name = "spritepool[1]" Type = "Sprite"/>
+	<Layer Name = "spritepool[2]" Type = "Sprite"/>
+	<Layer Name = "spritepool[3]" Type = "Sprite"/>
+	<Layer Name = "spritepool[4]" Type = "Sprite"/>
+	<Layer Name = "spritepool[5]" Type = "Sprite"/>
 
 </children></Mods>
