@@ -532,6 +532,7 @@ end
 
 for i,v in ipairs(bass) do
 	local pn=(i+1)%2+1
+	local switch=(i+1)%2
 	local inv=2*(i%2)-1
 	ease{v[1],0.5,pop,
 		100*inv,'rposx',
