@@ -15,23 +15,23 @@
 	}
 
 
-aftsprite1:SetTexture(aft1:GetTexture())
-aftsprite1:zoomx(1)
-aftsprite1:zoomy(1)
-aftsprite1:diffusealpha(1)
-aftsprite1:hidden(1)
+	aftsprite1:SetTexture(aft1:GetTexture())
+	aftsprite1:zoomx(1)
+	aftsprite1:zoomy(1)
+	aftsprite1:diffusealpha(1)
+	aftsprite1:hidden(1)
 
-exclusionsprite:GetShader():uniformTexture('sampler1',overlay:GetTexture())
-exclusionsprite:SetTexture(exclusionaft:GetTexture())
-overlay:hidden(1)
+	exclusionsprite:GetShader():uniformTexture('sampler1', overlay:GetTexture())
+	exclusionsprite:SetTexture(exclusionaft:GetTexture())
+	overlay:hidden(1)
 end)"
 
 Type = "ActorFrame"
 ><children>
 	<Layer Type = "Quad" Name = "aquad" />
-	<Layer 
-		Type="Sprite" 
-		InitCommand="%xero.sprite" 
+	<Layer
+		Type="Sprite"
+		InitCommand="%xero.sprite"
 		Name="aftsprite1"/>
 	<Layer File = "mang/mang.xml"/>
 	<Layer File = "xero/xero.xml"/>
@@ -42,17 +42,20 @@ Type = "ActorFrame"
 	<Layer Type = "ActorProxy" Name = "PP[1]" />
 	<Layer Type = "ActorProxy" Name = "PP[2]" />
 	<Layer File = "dripma.jpg" Name = "overlay" />
-	<Layer 
-		Type="ActorFrameTexture" 
-		InitCommand="%xero.aft" 
-		Name="exclusionaft"/>
-	<Layer 
-		Type="Sprite" 
-		Frag="shaders/exclusion.frag" 
-		InitCommand="%xero.sprite" 
-		Name="exclusionsprite"/>
-	<Layer 
-		Type="ActorFrameTexture" 
-		InitCommand="%xero.aft" 
-		Name="aft1"/>
+	<Layer
+		Type="ActorFrameTexture"
+		InitCommand="%xero.aft"
+		Name="exclusionaft"
+	/>
+	<Layer
+		Type="Sprite"
+		Frag="shaders/exclusion.frag"
+		InitCommand="%xero.sprite"
+		Name="exclusionsprite"
+	/>
+	<Layer
+		Type="ActorFrameTexture"
+		InitCommand="%xero.aft"
+		Name="aft1"
+	/>
 </children></Mods>
