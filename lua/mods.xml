@@ -11,7 +11,11 @@
 	end
 	-- your code goes here here:
 	setdefault {
-		2, 'xmod'
+		2, 'xmod',
+		100, 'dizzyholds',
+		100, 'stealthpastreceptors',
+		100, 'modtimer',
+		100, 'halgun',
 	}
 
 
@@ -30,6 +34,11 @@
 		spritepool[i]:hidden(1)
 		spritepool[i]:SetTexture(aft1:GetTexture())
 	end
+
+	setdefault {scx, 'xpos', scy, 'ypos', 0, 'zpos'}
+	definemod {'xpos', function(pos, pn) P[pn]:x(pos) end}
+	definemod {'ypos', function(pos, pn) P[pn]:y(pos) end}
+	definemod {'zpos', function(pos, pn) P[pn]:z(pos) end}
 
 end)"
 
