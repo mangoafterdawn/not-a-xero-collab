@@ -21,7 +21,7 @@ aftsprite1:zoomy(1)
 aftsprite1:diffusealpha(1)
 aftsprite1:hidden(1)
 
-exclusionsprite:GetShader():uniformTexture('sampler1',goku:GetTexture())
+exclusionsprite:GetShader():uniformTexture('sampler1',overlay:GetTexture())
 exclusionsprite:SetTexture(exclusionaft:GetTexture())
 overlay:hidden(1)
 end)"
