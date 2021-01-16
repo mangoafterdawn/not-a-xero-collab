@@ -98,7 +98,7 @@ bam = {
 --local inv=2*(i%2)-1
 --local switch=(i+1)%2
 setdefault{
-	0,'blendalpha'
+	80,'blendalphacd'
 }
 definemod{'blendalphacd','opacitycd',function(amt,opct)
 	aftsprite1:diffusealpha(amt/100)
