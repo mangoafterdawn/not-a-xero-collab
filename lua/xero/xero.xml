@@ -1,6 +1,45 @@
 <Mods LoadCommand = "%xero(function(self)
+	function funcQ(t)
+		local quad
+		func {t[1], function()
+			quad = table.remove(spritepool)
+			if not quad then SCREENMAN:SystemMessage('out') return end
+			quad:hidden(0)
+			t[3](quad)
+		end}
+		if t[4] then
+			func{t[1], t[2], linear, 0, 1, function(p) t[4](quad, p) end}
+		end
+		func {t[1] + t[2], function()
+			if not quad then return end
+			quad:hidden(1)
+			quad:x(scx)
+			quad:y(scy)
+			quad:cropleft(0)
+			quad:cropright(0)
+			quad:croptop(0)
+			quad:cropbottom(0)
+			quad:rotationz(0)
+			quad:diffuse(1, 1, 1, 1)
+			quad:blend('normal')
+			table.insert(spritepool, quad)
+		end}
+		return funcQ
+	end
+
+	funcQ {0, 27.5, function(quad)
+		print(quad)
+		quad:diffusealpha(0.5)
+		quad:rotationz(2)
+	end}
+	{0, 27.5, function(quad)
+		print(quad)
+		quad:blend('invertdest')
+		quad:y(scy+5)
+		quad:rotationz(-1)
+	end}
+
 	alias {'confusionzoffset', 'confusionoffset'}
-	-- your code goes here here:
 
 	set {0,
 		100, 'stealth',
@@ -52,4 +91,5 @@
 
 end)"
 	Type = "ActorFrame"
-/>
+><children>
+</children></Mods>
