@@ -28,10 +28,141 @@ local pi,pie=math.pi,math.pi*100
 function rad(deg)
 	return math.rad(deg) * 100
 end
+
+bam = {
+	{27.500,0,1},
+	{28.000,1,1},
+	{28.250,1,1},
+	{28.500,2,1},
+	{28.750,2,1},
+	{29.000,3,1},
+	{29.250,0,1},
+	{29.500,3,1},
+	{29.750,1,1},
+	{30.000,3,1},
+	{31.000,0,1},
+	{32.000,3,4,length=0.500},
+	{32.500,2,1},
+	{33.500,1,1},
+	{34.500,0,4,length=0.500},
+	{35.000,2,1},
+	{36.000,1,1},
+	{36.250,2,1},
+	{36.500,1,1},
+	{36.750,2,1},
+	{37.000,0,1},
+	{38.000,1,1},
+	{39.000,0,4,length=0.500},
+	{39.500,3,1},
+	{40.500,2,1},
+	{40.750,1,1},
+	{41.000,2,1},
+	{41.250,1,1},
+	{41.500,0,4},
+	{42.000,0,1},
+	{43.000,3,1},
+	{43.250,1,1},
+	{43.500,3,1},
+	{43.750,1,1},
+	{44.000,2,1},
+	{44.500,0,1},
+	{45.000,3,1},
+	{46.000,0,4,length=0.500},
+	{46.500,1,1},
+	{47.500,2,1},
+	{48.500,3,4,length=0.500},
+	{49.000,1,1},
+	{50.000,2,1},
+	{50.250,0,1},
+	{50.500,2,1},
+	{50.750,0,1},
+	{51.000,3,1},
+	{51.500,0,1},
+	{52.000,1,1},
+	{53.000,0,4,length=0.500},
+	{53.500,3,4,length=0.500},
+	{54.000,0,1},
+	{54.500,1,1},
+	{54.750,2,1},
+	{55.000,1,1},
+	{55.250,2,1},
+	{55.500,3,4},
+	{56.000,0,1},
+	{57.000,3,4,length=0.250},
+	{57.250,1,1},
+	{57.500,3,1},
+	{57.750,1,1},
+	{58.000,2,1},
+}
+
 --local inv=2*(i%2)-1
 --local switch=(i+1)%2
+setdefault{
+	0,'blendalpha'
+}
+definemod{'blendalphacd','opacitycd',function(amt,opct)
+	aftsprite1:diffusealpha(amt/100)
+	exclusionsprite:GetShader():uniform1f('opacity',opct)
+end}
+definemod{'rskewx','rskewy','rrotx','rroty','rrotz',function(rsx,rsy,rx,ry,rz)
+	aftsprite1:skewx(rsx/100)
+	aftsprite1:skewy(rsy/100)
+	aftsprite1:rotationx(rx)
+	aftsprite1:rotationy(ry)
+	aftsprite1:rotationz(rz)
+end}
+func{27,function()
+	aftsprite1:hidden(0)
+end}
 
-
+for i,v in ipairs(bam) do
+	local inv=2*(i%2)-1
+	if v[3]==4 then 
+		for k=0,3 do
+			ease{v[1]+k*0.1666,0.5,flip(outExpo),
+				-100,'tiny',
+				0,'rskewx',
+				-100,'rskewy',
+				-2,'rrotz',
+			}
+			if k==3 then
+				add{v[1]+k*0.1666,1,impulse[2],
+					100,'blendalphacd',
+					0.2,'opacitycd',
+				}
+				ease{v[1]+k*0.1666,2,flip(outExpo),
+					-200,'tiny',
+					100,'zigzag',
+				}
+			end
+		end
+	else
+		add{v[1],0.25,pop,
+			90,'blendalphacd',
+			0.8,'opacitycd',
+		}
+		ease{v[1],1,flip(outExpo),
+			-200,'tiny',
+			300,'arrowpathgirth',
+			0,'rskewx',
+			-100,'rskewy',
+		}
+		ease{v[1]-0.5,1,inverse,
+			20*inv,'alternate',
+			100,'invert',
+			100,'square',
+			100,'sawtooth',
+		}
+		ease{v[1],1,impulse[0.5],
+			-900,'tinyz',
+			90,'arrowpath',
+		}
+	end
+end
+ease{27,84-27,inQuint,
+	100,'blendalphacd',
+	1,'opacitycd',
+}
 
 end)"
 Type = "ActorFrame"

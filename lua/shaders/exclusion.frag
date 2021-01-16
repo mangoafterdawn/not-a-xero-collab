@@ -4,6 +4,7 @@ varying vec4 color;
 varying vec2 imageCoord;
 uniform vec2 imageSize;
 uniform vec2 textureSize;
+uniform float opacity;
 uniform sampler2D sampler0;
 uniform sampler2D sampler1;
 
@@ -28,11 +29,11 @@ void main()
 	//col1 = col1/(1.0-col2);
 
     //Color Burn
-	//col1 = 1.0-(1.0-col1)/col2;
+	col1 = 1.0-(1.0-col1)/col2;
 
     //Difference
 	//col1 = abs(col1-col2);
 
 
-	gl_FragColor = vec4( col1, 1.0 )*color;
+	gl_FragColor = vec4( col1, opacity )*color;
 }
