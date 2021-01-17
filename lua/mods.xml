@@ -29,6 +29,8 @@
 
 	exclusionsprite:GetShader():uniformTexture('sampler1', overlay:GetTexture())
 	exclusionsprite:SetTexture(exclusionaft:GetTexture())
+	dodgesprite:GetShader():uniformTexture('sampler1', overlay2:GetTexture())
+	dodgesprite:SetTexture(dodgeaft:GetTexture())
 	overlay:hidden(1)
 	
 	masksprite:SetTexture(exclusionaft:GetTexture())
@@ -62,6 +64,13 @@
 	definemod {'proxyrotz', function(pos) proxyframe2:rotationz(pos) end}
 	proxyframe3:xyz(-scx, -scy, 0)
 
+	plus:zoomto(sw*8,sw*8)
+	plus:texcoordvelocity(4,0)
+	plus:rotationx(-30)
+	plus:rotationy(-20)
+	plus:diffuse(0.7,0.7,0.7,1)
+	plus:blend('weightedmultiply')
+	plus:customtexturerect(0,0,64,64)
 	aquad:SetWidth(sw)
 	aquad:SetHeight(sh)
 	aquad:xy(scx, scy)
@@ -83,6 +92,7 @@ Type = "ActorFrame"
 		InitCommand="%xero.sprite"
 		Name="aftsprite1"
 	/>
+	<Layer File = "plus.png" Name = "plus"/>
 
 	<Layer Type = "ActorFrame" Name = "proxyframe1"><children>
 		<Layer Type = "ActorFrame" Name = "proxyframe2"><children>
@@ -108,11 +118,20 @@ Type = "ActorFrame"
 		Name="exclusionsprite"
 	/>
 
+	<Layer Type = "ActorFrameTexture" InitCommand = "%xero.aft" Name = "dodgeaft"/>
+	<Layer
+		Type="Sprite"
+		Frag="shaders/colordodge.frag"
+		InitCommand="%xero.sprite"
+		Name="dodgesprite"
+	/>
+
 	<Layer
 		Type="ActorFrameTexture"
 		InitCommand="%xero.aft"
 		Name="aft1"
 	/>
+
 
 	<Layer Name = "spritepool[1]" Type = "Sprite"/>
 	<Layer Name = "spritepool[2]" Type = "Sprite"/>

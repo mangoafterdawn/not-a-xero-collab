@@ -368,7 +368,8 @@ setdefault{
 	0,'bumpyzoffset',
 plr=2}
 setdefault{
-	80,'blendalphacd',
+	80,'blendalphacb',
+	1500,'wireframegirth',
 	0.1,'rrotz',
 	0.5,'rskewy',
 	0.5,'rskewx',
@@ -376,9 +377,12 @@ setdefault{
 	1000,'bumpyxperiod',
 	1000,'bumpyzperiod',
 }
-definemod{'blendalphacd','opacitycd',function(amt,opct)
+definemod{'blendalphacb','opacitycb',function(amt,opct)
 	aftsprite1:diffusealpha(amt/100)
 	exclusionsprite:GetShader():uniform1f('opacity',opct)
+end}
+definemod{'opacitycd',function(opct)
+	dodgesprite:GetShader():uniform1f('opacity',opct)
 end}
 definemod{'rskewx','rskewy','rrotx','rroty','rrotz','rzoom','rposx','rposy',function(rsx,rsy,rx,ry,rz,rzm,rpx,rpy)
 	aftsprite1:skewx(rsx/100)
@@ -406,8 +410,8 @@ for i,v in ipairs(bam) do
 			}
 			if k==3 then
 				add{v[1]+k*0.1666,1,impulse[2],
-					100,'blendalphacd',
-					0.2,'opacitycd',
+					100,'blendalphacb',
+					0.2,'opacitycb',
 				}
 				ease{v[1]+k*0.1666,2,flip(outExpo),
 					-200,'tiny',
@@ -417,8 +421,8 @@ for i,v in ipairs(bam) do
 		end
 	else
 		add{v[1],0.25,pop,
-			90,'blendalphacd',
-			0.8,'opacitycd',
+			90,'blendalphacb',
+			0.8,'opacitycb',
 		}
 		ease{v[1],1,flip(outExpo),
 			-200,'tiny',
@@ -437,8 +441,8 @@ for i,v in ipairs(bam) do
 	end
 end
 ease{27,84-27,inOutQuad,
-	100,'blendalphacd',
-	1,'opacitycd',
+	100,'blendalphacb',
+	1,'opacitycb',
 }
 --xero's feature request
 
@@ -477,20 +481,20 @@ for i=0,12 do
 	plr=2}
 end
 ease{58,26,inOutSine,
-	-200,'bumpyx',
-	200,'bumpyz',
+	-120,'bumpyx',
+	120,'bumpyz',
 
-	200,'bumpyzperiod',
-	200,'bumpyxperiod',
+	120,'bumpyzperiod',
+	120,'bumpyxperiod',
 
 	50,'arrowpath',
 plr=1}
 ease{58,26,inOutSine,
-	200,'bumpyx',
-	-200,'bumpyz',
+	120,'bumpyx',
+	-120,'bumpyz',
 
-	200,'bumpyzperiod',
-	200,'bumpyxperiod',
+	120,'bumpyzperiod',
+	120,'bumpyxperiod',
 
 	50,'arrowpath',
 plr=2}
@@ -537,36 +541,62 @@ end
 for i,v in ipairs(bass) do
 	local pn=(i+1)%2+1
 	local switch=(i+1)%2
+	local switch2=(i)%2
 	local inv=2*(i%2)-1
 	ease{v[1],1,flip(outExpo),
 		2,'mask'
 	}
+	ease{v[1]-0.1,0.5,flip(outExpo),
+		0,'tiny'
+	}
 	ease{v[1],0.5,outExpo,
 		100*switch,'flip',
 	}
---[[
+	if i%2==0 then 
+		ease{v[1]+0.25,1,outQuad,
+			-1000,'tinyz',
+			50,'roll',
+			50,'twirl',
+			100,'wireframe',
+		plr=1}
+		set{v[1]+0.25,
+			0,'tinyz',
+			0,'roll',
+			0,'twirl',
+			0,'wireframe',
+		plr=2}
+	else
+		ease{v[1]+0.25,1,outQuad,
+			-1000,'tinyz',
+			50,'roll',
+			50,'twirl',
+			100,'wireframe',
+		plr=2}
+		set{v[1]+0.25,
+			0,'tinyz',
+			0,'roll',
+			0,'twirl',
+			0,'wireframe',
+		plr=1}
+	end
+
+
 	ease{v[1],0.5,pop,
 		10*inv,'rposx',
 	}
-	ease{v[1],0.5,outExpo,
-		100*switch,'flip',
+	add{v[1],0.5,flip(outExpo),
+		-30,'rskewx',
+		30,'rskewy',
 	}
-	ease{v[1],0.5,outExpo,
-		-4*inv,'rskewy',
-		-4*inv,'rskewx',
-		-4*inv,'rrotx',
+	ease{v[1]-0.1,1.2,flip(outExpo),
+		-300*inv,'tanbumpy',
 	}
-	
-	ease{v[1]-1,2,inverse,
-		1*inv,'rskewx',
-		-1*inv,'rskewy',
-	}
-	ease{v[1]-0.5,1,inverse,
+	ease{v[1]-0.1,0.5,flip(outExpo),
 		5*inv,'rotationz',
-		-20*inv,'noteskewx',
-		-100*inv,'tinyy',
-		-50*inv,'tanbumpy',
-	}]]--
+		-40*inv,'noteskewx',
+		-1000,'tinyz',
+		-100,'tinyy',
+	}
 end
 
 ease{138.5,2,inOutCirc,
@@ -574,9 +604,14 @@ ease{138.5,2,inOutCirc,
 	5,'rposy',
 	25/2,'rroty',
 }
+
+ease{84-0.5,1,inOutCirc,
+	0,'opacitycb',
+	1,'opacitycd',
+}
 func{84,function()
 	exclusionsprite:GetShader():uniformTexture('sampler1', overlay2:GetTexture())
-	aquad:diffuse(0.9,0.9,0.9,1)
+	aquad:diffuse(0.0,0.0,0.0,1)
 end}
 
 end)"
