@@ -534,31 +534,35 @@ for i,v in ipairs(bass) do
 	local pn=(i+1)%2+1
 	local switch=(i+1)%2
 	local inv=2*(i%2)-1
+	ease{v[1],1,flip(outExpo),
+		2,'mask'
+	}
+	ease{v[1],0.5,outExpo,
+		100*switch,'flip',
+	}
+--[[
 	ease{v[1],0.5,pop,
-		100*inv,'rposx',
+		10*inv,'rposx',
 	}
 	ease{v[1],0.5,outExpo,
 		100*switch,'flip',
 	}
 	ease{v[1],0.5,outExpo,
-		100*switch,'flip',
-	}
-	ease{v[1],0.5,outExpo,
-		-15*inv,'rskewy',
-		-15*inv,'rskewx',
+		-4*inv,'rskewy',
+		-4*inv,'rskewx',
 		-4*inv,'rrotx',
 	}
 	
 	ease{v[1]-1,2,inverse,
-		10*inv,'rskewx',
-		-10*inv,'rskewy',
+		1*inv,'rskewx',
+		-1*inv,'rskewy',
 	}
 	ease{v[1]-0.5,1,inverse,
 		5*inv,'rotationz',
 		-20*inv,'noteskewx',
 		-100*inv,'tinyy',
 		-50*inv,'tanbumpy',
-	}
+	}]]--
 end
 
 ease{138.5,2,inOutCirc,
