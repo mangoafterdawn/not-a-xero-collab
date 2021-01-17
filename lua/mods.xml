@@ -18,6 +18,9 @@
 		100, 'halgun',
 		50, 'arrowpathdrawsizeback',
 		50, 'drawsizeback',
+		-30,'plusrx',
+		-30,'plusry',
+		20,'plusrz',
 	}
 
 
@@ -64,13 +67,12 @@
 	definemod {'proxyrotz', function(pos) proxyframe2:rotationz(pos) end}
 	proxyframe3:xyz(-scx, -scy, 0)
 
+	plus:hidden(1)
 	plus:zoomto(sw*8,sw*8)
-	plus:texcoordvelocity(4,0)
-	plus:rotationx(-30)
-	plus:rotationy(-20)
+	plus:texcoordvelocity(1,0)
 	plus:diffuse(0.7,0.7,0.7,1)
 	plus:blend('weightedmultiply')
-	plus:customtexturerect(0,0,64,64)
+	plus:customtexturerect(0,0,32,32)
 	aquad:SetWidth(sw)
 	aquad:SetHeight(sh)
 	aquad:xy(scx, scy)

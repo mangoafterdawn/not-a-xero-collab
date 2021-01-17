@@ -661,11 +661,13 @@ add{140,196-140,inQuad,
 	360*5,'plusrz',
 }
 
-
 func{84,function()
+	plus:hidden(0)
 	exclusionsprite:GetShader():uniformTexture('sampler1', overlay2:GetTexture())
 	aquad:diffuse(0.0,0.0,0.0,1)
 end}
+
+reset{194.5,1.5,inExpo}
 
 end)"
 Type = "ActorFrame"
