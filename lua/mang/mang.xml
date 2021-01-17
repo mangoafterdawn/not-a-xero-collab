@@ -547,14 +547,12 @@ for i,v in ipairs(bass) do
 		2,'mask'
 	}
 	ease{v[1]-0.1,0.5,flip(outExpo),
-		0,'tiny'
-	}
-	ease{v[1],0.5,outExpo,
-		100*switch,'flip',
+		-200,'tiny',
+		-50,'flip',
 	}
 	if i%2==0 then 
 		ease{v[1]+0.25,1,outQuad,
-			-1000,'tinyz',
+			0,'tinyz',
 			50,'roll',
 			50,'twirl',
 			100,'wireframe',
@@ -567,7 +565,7 @@ for i,v in ipairs(bass) do
 		plr=2}
 	else
 		ease{v[1]+0.25,1,outQuad,
-			-1000,'tinyz',
+			0,'tinyz',
 			50,'roll',
 			50,'twirl',
 			100,'wireframe',
@@ -581,6 +579,12 @@ for i,v in ipairs(bass) do
 	end
 
 
+	ease{v[1],1,impulse[2],
+		10*inv,'noteskewy',
+		-10*inv,'skewy',
+		-10*inv,'alternate',
+		8*inv,'split',
+	}
 	ease{v[1],0.5,pop,
 		10*inv,'rposx',
 	}
@@ -588,17 +592,48 @@ for i,v in ipairs(bass) do
 		-30,'rskewx',
 		30,'rskewy',
 	}
-	ease{v[1]-0.1,1.2,flip(outExpo),
-		-300*inv,'tanbumpy',
+	ease{v[1]-0.1,1.75,popElastic[2][4],
+		-100,'tinyx',
 	}
 	ease{v[1]-0.1,0.5,flip(outExpo),
+		200*inv,'sawtooth',
 		5*inv,'rotationz',
 		-40*inv,'noteskewx',
-		-1000,'tinyz',
 		-100,'tinyy',
+		1000,'arrowpathgirth',
 	}
+	if v[1]>=140 then 
+		ease{v[1],0.5,outExpo,
+			100*switch,'flip',
+		}
+	else
+
+	end
+
+end
+for i=0,12 do
+	ease{84+i*8,4,inOutSine,
+		45/4,'rotationz',
+	}
+	ease{84+i*8+4,4,inOutSine,
+		-45/4,'rotationz',
+	}
+	if i%3==0 then
+		ease{84+i*8,12,inOutSine,
+			45/1.5,'rotationx',
+			-45/1.2,'rotationy',
+		}
+	else
+		ease{84+i*8+6,12,inOutSine,
+			-45/1.5,'rotationx',
+			45/1.2,'rotationy',
+		}
+	end
 end
 
+ease{138.5,1.25,inExpo,
+	100,'flip'
+}
 ease{138.5,2,inOutCirc,
 	0,'rskewx',
 	5,'rposy',
@@ -609,6 +644,24 @@ ease{84-0.5,1,inOutCirc,
 	0,'opacitycb',
 	1,'opacitycd',
 }
+func{138.5,function()
+	plus:diffusealpha(0)
+end}
+func{140,1,inQuad,function()
+	plus:diffusealpha(0.25)
+	plus:rotationx(20)
+	plus:rotationy(-50)
+end}
+definemod{'plusrx','plusry','plusrz',function(rx,ry,rz)
+	plus:rotationx(rx)
+	plus:rotationy(ry)
+	plus:rotationz(rz)
+end}
+add{140,196-140,inQuad,
+	360*5,'plusrz',
+}
+
+
 func{84,function()
 	exclusionsprite:GetShader():uniformTexture('sampler1', overlay2:GetTexture())
 	aquad:diffuse(0.0,0.0,0.0,1)
