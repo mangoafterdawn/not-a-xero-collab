@@ -63,8 +63,8 @@
 	func{26, function()
 		masksprite:diffusealpha(1)
 		masksprite:rotationz(0)
-		masksprite:zoom(0.995)
-		masksprite:SetTextureFiltering(true)
+		masksprite:zoom(1.005)
+		masksprite:SetTextureFiltering(false)
 	end}
 	ease {58, 81, m=e, linear, 0.6, 'mask'}
 	set {84, 0, 'mask'}
@@ -117,14 +117,6 @@
 		pn = 3 - pn
 	end
 	reset {25, 4, inOutQuad}
-	for i = 1, 4 do
-		local i = i
-		funcQ {82.75 + i * .25, 1.25 - i * .25, function(quad)
-			quad:x(scx - 64 * i)
-			quad:cropleft(cropconvert(0.55))
-			quad:cropright(cropconvert(0.35))
-		end}
-	end
 
 end)"
 	Type = "ActorFrame"
