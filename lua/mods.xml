@@ -33,7 +33,11 @@
 	
 	masksprite:SetTexture(exclusionaft:GetTexture())
 	masksprite:GetShader():uniformTexture('sampler1', maskimage:GetTexture())
-	definemod {'mask', function(p) masksprite:hidden(p == 0 and 1 or 0) masksprite:GetShader():uniform1f('limit', p) end}
+	definemod {'mask', function(p)
+		if p == 0 then masksprite:hidden(1) else masksprite:hidden(0) end
+		masksprite:GetShader():uniform1f('limit', p)
+	end
+	}
 	sprite(masksprite)
 	masksprite:rotationz(120)
 	masksprite:SetTextureFiltering(false)
