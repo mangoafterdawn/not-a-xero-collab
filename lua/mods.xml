@@ -72,6 +72,7 @@ Type = "ActorFrame"
 	<Layer File = "mang/mang.xml"/>
 	<Layer File = "xero/xero.xml"/>
 	<Layer File = "dripma.jpg" Name = "overlay"/>
+	<Layer File = "over2.png" Name = "overlay2"/>
 	<Layer File = "noise.png" Name = "maskimage"/>
 
 

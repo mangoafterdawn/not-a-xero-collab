@@ -499,6 +499,10 @@ ease{82,2,inOutQuad,
 	0,'bumpyz',
 }
 
+ease{84,2,inOutSine,
+	get('rskewx')/8,'rskewx',
+	get('rskewy')/8,'rskewy'
+}
 for i,v in ipairs(ebam) do
 	local inv=2*(i%2)-1
 	if v[3]==4 then
@@ -567,9 +571,12 @@ end
 
 ease{138.5,2,inOutCirc,
 	0,'rskewx',
-	20,'rposy',
-	25,'rroty',
+	5,'rposy',
+	25/2,'rroty',
 }
+func{84,function()
+	exclusionsprite:GetShader():uniformTexture('sampler1', overlay2:GetTexture())
+end}
 
 end)"
 Type = "ActorFrame"
