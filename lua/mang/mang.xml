@@ -576,6 +576,7 @@ ease{138.5,2,inOutCirc,
 }
 func{84,function()
 	exclusionsprite:GetShader():uniformTexture('sampler1', overlay2:GetTexture())
+	aquad:diffuse(0.9,0.9,0.9,1)
 end}
 
 end)"
