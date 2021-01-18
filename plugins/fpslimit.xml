@@ -9,6 +9,7 @@
 				-- check specifically for false, as `nil` should default to true
 				if enable == false then
 					limits[aft] = nil
+					aft:hiddden(1)
 				else
 					limits[aft] = {fps or 60, 0}
 				end

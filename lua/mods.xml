@@ -143,5 +143,31 @@ Type = "ActorFrame"
 	<Layer Name = "spritepool[3]" Type = "Sprite"/>
 	<Layer Name = "spritepool[4]" Type = "Sprite"/>
 	<Layer Name = "spritepool[5]" Type = "Sprite"/>
+	<Layer Name = "spritepool[5]" Type = "Sprite"/>
+	<Layer Name = "spritepool[6]" Type = "Sprite"/>
+	<Layer Name = "spritepool[7]" Type = "Sprite"/>
+	<Layer Name = "spritepool[8]" Type = "Sprite"/>
+	<Layer Name = "spritepool[9]" Type = "Sprite"/>
+	<Layer Name = "spritepool[10]" Type = "Sprite"/>
+	<Layer Name = "spritepool[11]" Type = "Sprite"/>
+	<Layer Name = "spritepool[12]" Type = "Sprite"/>
+	<Layer Name = "spritepool[13]" Type = "Sprite"/>
+	<Layer Name = "spritepool[14]" Type = "Sprite"/>
+	<Layer Name = "spritepool[15]" Type = "Sprite"/>
+	<Layer Name = "spritepool[16]" Type = "Sprite"/>
+	<Layer Name = "spritepool[17]" Type = "Sprite"/>
+	<Layer Name = "spritepool[18]" Type = "Sprite"/>
+	<Layer Name = "spritepool[19]" Type = "Sprite"/>
+	<Layer Name = "spritepool[20]" Type = "Sprite"/>
+	<Layer Name = "spritepool[21]" Type = "Sprite"/>
+	<Layer Name = "spritepool[22]" Type = "Sprite"/>
+	<Layer Name = "spritepool[23]" Type = "Sprite"/>
+	<Layer Name = "spritepool[24]" Type = "Sprite"/>
+	<Layer Name = "spritepool[25]" Type = "Sprite"/>
+	<Layer Name = "spritepool[26]" Type = "Sprite"/>
+	<Layer Name = "spritepool[27]" Type = "Sprite"/>
+	<Layer Name = "spritepool[28]" Type = "Sprite"/>
+	<Layer Name = "spritepool[29]" Type = "Sprite"/>
+	<Layer Name = "spritepool[30]" Type = "Sprite"/>
 
 </children></Mods>

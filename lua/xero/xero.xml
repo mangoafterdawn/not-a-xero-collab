@@ -119,7 +119,54 @@
 		pn = 3 - pn
 	end
 	reset {25, 4, inOutQuad}
-
+	
+	local coldata = {
+		[0] = {.3, .6},
+		[1] = {.4, .5},
+		[2] = {.5, .4},
+		[3] = {.6, .3},
+	}
+	local switch = 1
+	function thing(beat, col)
+		local s = switch
+		switch = -switch
+		funcQ {beat, 3, function(quad)
+			if beat < 222 then
+				quad:croptop(0.7)
+				quad:cropbottom(0.15)
+			end
+			quad:cropleft(cropconvert(coldata[col][1]))
+			quad:cropright(cropconvert(coldata[col][2]))
+		end, function(quad, p)
+			quad:y(scy + p * p * sh)
+			quad:rotationz(p * 90 * s)
+		end}
+	end
+	local THETA = 0.3217505544
+	local R = 158.113883007
+	local PI = 3.14159265358979323
+	local NINETY = PI * 0.5
+	local OFFSET = -2 * THETA * 100 / NINETY
+	local sin,cos = math.sin, math.cos
+	definemod {'rot', 'rotzoom', function(rot, rotzoom)
+		return
+			R * cos(THETA + NINETY * (2 + rot * 0.01)) + (1.5 - 0) * 100,
+			R * cos(THETA + NINETY * (1 + rot * 0.01)) + (1.5 - 1) * 100,
+			R * cos(THETA + NINETY * (3 + rot * 0.01)) + (1.5 - 2) * 100,
+			R * cos(THETA + NINETY * (0 + rot * 0.01)) + (1.5 - 3) * 100,
+			R * 0.01 * rotzoom * sin(THETA + NINETY * (2 + rot * 0.01)),
+			R * 0.01 * rotzoom * sin(THETA + NINETY * (1 + rot * 0.01)),
+			R * 0.01 * rotzoom * sin(THETA + NINETY * (3 + rot * 0.01)),
+			R * 0.01 * rotzoom * sin(THETA + NINETY * (0 + rot * 0.01))
+	end, 'movex0', 'movex1', 'movex2', 'movex3', 'movez0', 'movez1', 'movez2', 'movez3'}
+	add {221, 3, linear, 200, 'rot'}
+	add {220, 5, bell, 100, 'rotzoom'}
+	for i, v in ipairs(P1:GetNoteData(196, 279)) do
+		thing(v[1], v[2])
+		add {v[1], 1, outExpo, 100, 'rot'}
+		add {v[1], 1, pop, 100, 'rotzoom'}
+	end
+	reset {279.5}
 end)"
 	Type = "ActorFrame"
 ><children>
