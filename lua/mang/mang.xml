@@ -669,6 +669,54 @@ end}
 
 reset{194.5,1.5,inExpo}
 
+mincr0=0
+mincr1=0
+mincr2=0
+set{336,
+	100,'stealth',
+	100,'dark',
+	100,'arrowpath',
+	1000,'attenuatex',
+	200,'zoom',
+
+plr=2}
+for i=0,128 do 
+	local inv=2*(i%2)-1
+	ease{336+i*0.5,0.5,flip(outQuad),
+		500,'arrowpathgirth',
+	}
+	ease{336+i*0.5,0.25,flip(outQuad),
+		0,'stealth',
+		210,'zoom',
+	plr=2}
+	ease{336+i*4,8,inOutSine,
+		90*inv,'rotationz',
+	plr=2}
+	ease{336+i*4+4,8,inOutSine,
+		-90*inv,'rotationz',
+	plr=2}
+	if i%4==0 then
+	local inv=2*(mincr0%2)-1
+	mincr0=mincr0+1
+	ease{336+i*0.5,1,outExpo,
+		100,'flip',
+	plr=2}
+	elseif i%4==1 then
+	
+	elseif i%4==2 then
+	local inv=2*(mincr1%2)-1
+	ease{336+i*4,8,inOutSine,
+		50*inv,'rotationx',
+	plr=2}
+	ease{336+i*4+4,8,inOutSine,
+		-50*inv,'rotationx',
+	plr=2}
+	ease{336+i*0.5,1,outExpo,
+		0,'flip',
+	plr=2}
+	end
+end
+
 end)"
 Type = "ActorFrame"
 />
