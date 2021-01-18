@@ -384,6 +384,9 @@ end}
 definemod{'opacitycd',function(opct)
 	dodgesprite:GetShader():uniform1f('opacity',opct)
 end}
+definemod{'opacitydf',function(opct)
+	diffsprite:GetShader():uniform1f('opacity',opct)
+end}
 definemod{'rskewx','rskewy','rrotx','rroty','rrotz','rzoom','rposx','rposy',function(rsx,rsy,rx,ry,rz,rzm,rpx,rpy)
 	aftsprite1:skewx(rsx/100)
 	aftsprite1:skewy(rsy/100)
@@ -662,7 +665,7 @@ add{140,196-140,inQuad,
 }
 
 func{84,function()
-	plus:hidden(0)
+	plus:hidden(1)
 	exclusionsprite:GetShader():uniformTexture('sampler1', overlay2:GetTexture())
 	aquad:diffuse(0.0,0.0,0.0,1)
 end}
@@ -673,32 +676,79 @@ mincr0=0
 mincr1=0
 mincr2=0
 set{336,
+	700,'attenuatex',
+	100,'zoom',
+	6000,'arrowpathdrawsize',
+	6000,'arrowpathdrawsizeback',
+	--0.2,'opacitycd',
+	1,'opacitydf',
+	--100.1,'rzoom',
+	4,'rskewy',
+	2,'rskewx',
+	1,'rrotx',
+	-0.5,'rrotz',
+	100,'blendalphacb',
+}
+set{336,
 	100,'stealth',
 	100,'dark',
-	100,'arrowpath',
-	1000,'attenuatex',
-	200,'zoom',
 
 plr=2}
+func{336,function()
+	plus:hidden(0)
+	plus:customtexturerect(0,0,12,12)
+	plus:texcoordvelocity(1,1)
+	dodgesprite:hidden(0)
+	overlay:hidden(0)
+	overlay:blend('add')
+	overlay:diffusealpha(1)
+	overlay:zoomto(sw,sw)
+	overlay:xy(scx,scy)
+	overlay4:hidden(0)
+	overlay4:blend('subtract')
+	overlay4:diffusealpha(0.2)
+	overlay4:zoomto(sw*1.5,sw*1.5)
+	overlay4:xy(scx,scy)
+	diffsprite:SetTextureFiltering(false)
+	aquad:diffuse(0,0,0,1)
+end}
+definemod{'overlayrz',function(z)
+	overlay4:rotationz(z)
+end}
 for i=0,128 do 
 	local inv=2*(i%2)-1
+	ease{336+i*0.5,0.5,pop,
+		--0.1,'opacitycd'
+	}
+	ease{336+i*0.5,0.2,flip(outQuad),
+		--0.2,'opacitycd',
+	}
 	ease{336+i*0.5,0.5,flip(outQuad),
 		500,'arrowpathgirth',
 	}
+	ease{336+i*0.5,0.75,flip(inCirc),
+		100*inv,'square',
+		50,'zoomx',
+	plr=2}
+	ease{336+i*0.5,0.5,flip(inCirc),
+		100,'arrowpath',
+		10*inv,'alternate',
+	}
 	ease{336+i*0.5,0.25,flip(outQuad),
-		0,'stealth',
-		210,'zoom',
+		20,'stealth',
 	plr=2}
 	ease{336+i*4,8,inOutSine,
 		90*inv,'rotationz',
-	plr=2}
+		-90/4*inv,'overlayrz',
+	}
 	ease{336+i*4+4,8,inOutSine,
 		-90*inv,'rotationz',
-	plr=2}
+		90/4*inv,'overlayrz',
+	}
 	if i%4==0 then
 	local inv=2*(mincr0%2)-1
 	mincr0=mincr0+1
-	ease{336+i*0.5,1,outExpo,
+	ease{336+i*0.5,0.5,instant,
 		100,'flip',
 	plr=2}
 	elseif i%4==1 then
@@ -707,11 +757,11 @@ for i=0,128 do
 	local inv=2*(mincr1%2)-1
 	ease{336+i*4,8,inOutSine,
 		50*inv,'rotationx',
-	plr=2}
+	}
 	ease{336+i*4+4,8,inOutSine,
 		-50*inv,'rotationx',
-	plr=2}
-	ease{336+i*0.5,1,outExpo,
+	}
+	ease{336+i*0.5,0.5,instant,
 		0,'flip',
 	plr=2}
 	end

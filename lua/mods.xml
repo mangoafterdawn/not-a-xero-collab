@@ -37,7 +37,12 @@
 	exclusionsprite:SetTexture(exclusionaft:GetTexture())
 	dodgesprite:GetShader():uniformTexture('sampler1', overlay2:GetTexture())
 	dodgesprite:SetTexture(dodgeaft:GetTexture())
+	diffsprite:GetShader():uniformTexture('sampler1', overlay3:GetTexture())
+	diffsprite:SetTexture(diffaft:GetTexture())
 	overlay:hidden(1)
+	overlay2:hidden(1)
+	overlay3:hidden(1)
+	overlay4:hidden(1)
 	
 	masksprite:SetTexture(exclusionaft:GetTexture())
 	masksprite:GetShader():uniformTexture('sampler1', maskimage:GetTexture())
@@ -85,8 +90,8 @@ Type = "ActorFrame"
 ><children>
 	<Layer File = "mang/mang.xml"/>
 	<Layer File = "xero/xero.xml"/>
-	<Layer File = "dripma.jpg" Name = "overlay"/>
 	<Layer File = "over2.png" Name = "overlay2"/>
+	<Layer File = "over3.png" Name = "overlay3"/>
 	<Layer File = "noise.png" Name = "maskimage"/>
 
 
@@ -97,6 +102,7 @@ Type = "ActorFrame"
 		InitCommand="%xero.sprite"
 		Name="aftsprite1"
 	/>
+
 	<Layer File = "plus.png" Name = "plus"/>
 
 	<Layer Type = "ActorFrame" Name = "proxyframe1"><children>
@@ -112,7 +118,8 @@ Type = "ActorFrame"
 	<Layer Type = "ActorProxy" Name = "PC[2]"/>
 	<Layer Type = "ActorProxy" Name = "PJ[1]"/>
 	<Layer Type = "ActorProxy" Name = "PJ[2]"/>
-
+	<Layer File = "dripma.jpg" Name = "overlay"/>
+	<Layer File = "over4.png" Name = "overlay4"/>
 	<Layer Type = "Sprite" Name = "masksprite" Frag = "shaders/mask.frag"/>
 
 	<Layer Type = "ActorFrameTexture" InitCommand = "%xero.aft" Name = "exclusionaft"/>
@@ -129,6 +136,14 @@ Type = "ActorFrame"
 		Frag="shaders/colordodge.frag"
 		InitCommand="%xero.sprite"
 		Name="dodgesprite"
+	/>
+
+	<Layer Type = "ActorFrameTexture" InitCommand = "%xero.aft" Name = "diffaft"/>
+	<Layer
+		Type="Sprite"
+		Frag="shaders/difference.frag"
+		InitCommand="%xero.sprite"
+		Name="diffsprite"
 	/>
 
 	<Layer
