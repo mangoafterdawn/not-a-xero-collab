@@ -1,0 +1,35 @@
+<Plugin LoadCommand = "%(xero(function()
+	local limits = {}
+	local prevtime
+	local max_cap = 10
+	return function(self)
+		local curtime = GAMESTATE:GetSongTime()
+		if not prevtime then
+			function fpslimit(aft, fps, enable)
+				-- check specifically for false, as `nil` should default to true
+				if enable == false then
+					limits[aft] = nil
+				else
+					limits[aft] = {fps or 60, 0}
+				end
+			end
+			prevtime = curtime
+			self:luaeffect('Load')
+			return
+		end
+		local dt = curtime - prevtime
+		for aft, data in pairs(limits) do
+			data[2] = data[2] + dt * data[1]
+			if data[2] > 1 then
+				data[2] = data[2] - 1
+				aft:hidden(0)
+				if data[2] > max_cap then
+					data[2] = max_cap
+				end
+			else
+				aft:hidden(1)
+			end
+		end
+		prevtime = curtime
+	end
+end))()"/>

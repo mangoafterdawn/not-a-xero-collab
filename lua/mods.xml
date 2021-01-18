@@ -23,6 +23,9 @@
 		20,'plusrz',
 	}
 
+	fpslimit(aft1)
+	fpslimit(dodgeaft)
+	fpslimit(exclusionaft)
 
 	aftsprite1:SetTexture(aft1:GetTexture())
 	aftsprite1:zoomx(1)
