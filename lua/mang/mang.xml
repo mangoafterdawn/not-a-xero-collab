@@ -357,6 +357,7 @@ bass = {
 	{194.000,3,1},
 }
 
+GAMESTATE:ForceSmoothLines(0)
 --local inv=2*(i%2)-1
 --local switch=(i+1)%2
 setdefault{
@@ -383,6 +384,9 @@ definemod{'blendalphacb','opacitycb',function(amt,opct)
 end}
 definemod{'opacitycd',function(opct)
 	dodgesprite:GetShader():uniform1f('opacity',opct)
+end}
+definemod{'opacitydf',function(opct)
+	diffsprite:GetShader():uniform1f('opacity',opct)
 end}
 definemod{'rskewx','rskewy','rrotx','rroty','rrotz','rzoom','rposx','rposy',function(rsx,rsy,rx,ry,rz,rzm,rpx,rpy)
 	aftsprite1:skewx(rsx/100)
@@ -662,7 +666,7 @@ add{140,196-140,inQuad,
 }
 
 func{84,function()
-	plus:hidden(0)
+	plus:hidden(1)
 	exclusionsprite:GetShader():uniformTexture('sampler1', overlay2:GetTexture())
 	aquad:diffuse(0.0,0.0,0.0,1)
 end}
@@ -673,47 +677,97 @@ mincr0=0
 mincr1=0
 mincr2=0
 set{336,
+	700,'attenuatex',
+	100,'zoom',
+	6000,'arrowpathdrawsize',
+	6000,'arrowpathdrawsizeback',
+	1,'opacitydf',
+	101,'rzoom',
+	0,'rskewy',
+	0,'rskewx',
+	0,'rrotx',
+	0,'rrotz',
+	0,'rposx',
+	100,'blendalphacb',
+	75,'drawsize',
+	75,'drawsizeback',
+}
+set{336,
+	50,'arrowpath',
 	100,'stealth',
 	100,'dark',
-	100,'arrowpath',
-	1000,'attenuatex',
-	200,'zoom',
-
+	100,'flip',
 plr=2}
+func{336,function()
+	plus:hidden(0)
+	plus:customtexturerect(0,0,12,12)
+	plus:texcoordvelocity(1,1)
+	dodgesprite:hidden(0)
+	overlay:hidden(1)
+	overlay:blend('add')
+	overlay:diffusealpha(1)
+	overlay:zoomto(sw,sw)
+	overlay:xy(scx,scy)
+	overlay4:hidden(0)
+	overlay4:blend('subtract')
+	overlay4:diffusealpha(0.2)
+	overlay4:zoomto(sw*1.5,sw*1.5)
+	overlay4:xy(scx,scy)
+	aftsprite1:SetTextureFiltering(false)
+	aquad:diffuse(0,0,0,1)
+end}
+definemod{'overlayrz',function(z)
+	overlay4:rotationz(z)
+end}
 for i=0,128 do 
+	local switch=(i+1)%2
 	local inv=2*(i%2)-1
-	ease{336+i*0.5,0.5,flip(outQuad),
-		500,'arrowpathgirth',
+	ease{336+i*0.5,0.25,pop,
 	}
-	ease{336+i*0.5,0.25,flip(outQuad),
-		0,'stealth',
-		210,'zoom',
+	ease{336+i*0.5,0.5,outExpo,
+		1*switch,'opacitydf',
+		100*inv,'square',
+	}
+	add{336+i*0.5,2,flip(outQuad),
+		-50,'stealth',
 	plr=2}
+	add{336+i*0.5,1,outExpo,
+		-90/8,'overlayrz',
+		100,'squareoffset'
+	}
+	ease{336+i*0.5,0.5,flip(inCirc),
+		50,'zoomx',
+	plr=2}
+	ease{336+i*0.5,1,popElastic[2][3],
+		-400,'tinyx',
+	}
+	ease{336+i*0.5,1.25,popElastic[2][4],
+		1000,'arrowpathgirth',
+		-400,'tinyy',
+	}
+	ease{336+i*0.5,0.5,flip(inCirc),
+		10*inv,'alternate',
+	}
 	ease{336+i*4,8,inOutSine,
 		90*inv,'rotationz',
-	plr=2}
+	}
 	ease{336+i*4+4,8,inOutSine,
 		-90*inv,'rotationz',
-	plr=2}
+	}
 	if i%4==0 then
-	local inv=2*(mincr0%2)-1
-	mincr0=mincr0+1
-	ease{336+i*0.5,1,outExpo,
-		100,'flip',
-	plr=2}
 	elseif i%4==1 then
 	
 	elseif i%4==2 then
+	mincr1=mincr1+1
 	local inv=2*(mincr1%2)-1
 	ease{336+i*4,8,inOutSine,
 		50*inv,'rotationx',
-	plr=2}
+		-rad(50*inv),'confusionxoffset',
+	}
 	ease{336+i*4+4,8,inOutSine,
 		-50*inv,'rotationx',
-	plr=2}
-	ease{336+i*0.5,1,outExpo,
-		0,'flip',
-	plr=2}
+		rad(50*inv),'confusionxoffset',
+	}
 	end
 end
 
