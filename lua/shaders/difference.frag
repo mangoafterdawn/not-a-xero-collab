@@ -25,12 +25,12 @@ void main()
     //Exclusion
 
     //Addition
-    //col1= col1+col2;
+    col1= col1*col2;
 
     //Lighten
 	//col1 = abs(col1-col2);
-	//col1 = max(col1,col2);
-	col1 = 0.5-2.0*(col1-0.5)*(col2-0.5);
+	//col1 = 0.5-2.0*(col1-0.5)*(col2-0.5);
+	//col1 = min(col1,col2);
 
     //Color Dodge
 	//col1 = col1/(1.0-col2);
