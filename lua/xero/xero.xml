@@ -58,15 +58,16 @@
 	alias {'confusionzoffset', 'confusionoffset'}
 
 	set {0, .5, 'mask'}
-	func{22, 4, inOutCubic, 1, 0, function(p) masksprite:diffusealpha(p) end}
+	func {22, 4, inOutCubic, 1, 0, function(p) masksprite:diffusealpha(p) end}
 	set {26, 0, 'mask'}
-	func{26, function()
+	func {26, function()
 		masksprite:diffusealpha(1)
 		masksprite:rotationz(0)
 		masksprite:zoom(1)
 		masksprite:SetTextureFiltering(false)
 	end}
 	ease {58, 81, m=e, linear, 0.6, 'mask'}
+	ease {82, 2, function(x) return math.cos(x * 4 * math.pi) end , 1, 'mask'}
 	set {84, 0, 'mask'}
 	func {84, function()
 		masksprite:zoom(1.005)
@@ -130,7 +131,7 @@
 	function thing(beat, col)
 		local s = switch
 		switch = -switch
-		funcQ {beat, 3, function(quad)
+		funcQ {beat, 2, function(quad)
 			if beat < 222 then
 				quad:croptop(0.7)
 				quad:cropbottom(0.15)
@@ -148,23 +149,44 @@
 	local NINETY = PI * 0.5
 	local OFFSET = -2 * THETA * 100 / NINETY
 	local sin,cos = math.sin, math.cos
-	definemod {'rot', 'rotzoom', function(rot, rotzoom)
-		return
-			R * cos(THETA + NINETY * (2 + rot * 0.01)) + (1.5 - 0) * 100,
-			R * cos(THETA + NINETY * (1 + rot * 0.01)) + (1.5 - 1) * 100,
-			R * cos(THETA + NINETY * (3 + rot * 0.01)) + (1.5 - 2) * 100,
-			R * cos(THETA + NINETY * (0 + rot * 0.01)) + (1.5 - 3) * 100,
-			R * 0.01 * rotzoom * sin(THETA + NINETY * (2 + rot * 0.01)),
-			R * 0.01 * rotzoom * sin(THETA + NINETY * (1 + rot * 0.01)),
-			R * 0.01 * rotzoom * sin(THETA + NINETY * (3 + rot * 0.01)),
-			R * 0.01 * rotzoom * sin(THETA + NINETY * (0 + rot * 0.01))
-	end, 'movex0', 'movex1', 'movex2', 'movex3', 'movez0', 'movez1', 'movez2', 'movez3'}
+	func {196, function()
+		masksprite:zoom(1)
+		masksprite:SetTextureFiltering(true)
+		masksprite:y(scy-7)
+		masksprite:GetShader():uniform1f('rate', 1)
+		for pn = 1, 2 do
+			PJ[pn]:y(sh+20)
+		end
+	end}
+	set {196, .85, 'mask'}
+	definemod {
+		'rot', 'rotzoom',
+		function(rot, rotzoom)
+			return
+				R * cos(THETA + NINETY * (2 + rot * 0.01)) + (1.5 - 0) * 100,
+				R * cos(THETA + NINETY * (1 + rot * 0.01)) + (1.5 - 1) * 100,
+				R * cos(THETA + NINETY * (3 + rot * 0.01)) + (1.5 - 2) * 100,
+				R * cos(THETA + NINETY * (0 + rot * 0.01)) + (1.5 - 3) * 100,
+				R * 0.01 * rotzoom * sin(THETA + NINETY * (2 + rot * 0.01)),
+				R * 0.01 * rotzoom * sin(THETA + NINETY * (1 + rot * 0.01)),
+				R * 0.01 * rotzoom * sin(THETA + NINETY * (3 + rot * 0.01)),
+				R * 0.01 * rotzoom * sin(THETA + NINETY * (0 + rot * 0.01))
+		end,
+		'movex0', 'movex1', 'movex2', 'movex3', 'movez0', 'movez1', 'movez2', 'movez3',
+	}
 	add {221, 3, linear, 200, 'rot'}
 	add {220, 5, bell, 100, 'rotzoom'}
+	ease {248.5, 2, outCubic, 100, 'reverse'}
+	func {248.5, 2, outCubic, -7, 7, function(y) masksprite:y(scy+y) end}
+	func {248.5, 2, outCubic, sh+20, 40, function(y)
+		PJ[1]:y(y)
+		PJ[2]:y(y)
+	end}
+	local toggle = 1
 	for i, v in ipairs(P1:GetNoteData(196, 279)) do
-		thing(v[1], v[2])
-		add {v[1], 1, outExpo, 100, 'rot'}
-		add {v[1], 1, pop, 100, 'rotzoom'}
+		add {v[1], 1, outBack, toggle == 1 and 100 + OFFSET or -OFFSET, 'rot'}
+		add {v[1], .7, pop, 100, 'rotzoom', 100, 'arrowpath'}
+		toggle = -toggle
 	end
 	reset {279.5}
 end)"
