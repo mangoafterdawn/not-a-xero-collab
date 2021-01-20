@@ -681,7 +681,7 @@ set{336,
 	100,'zoom',
 	6000,'arrowpathdrawsize',
 	6000,'arrowpathdrawsizeback',
-	1,'opacitydf',
+	0.2,'opacitycd',
 	101,'rzoom',
 	0,'rskewy',
 	0,'rskewx',
@@ -703,7 +703,7 @@ func{336,function()
 	plus:customtexturerect(0,0,12,12)
 	plus:texcoordvelocity(1,1)
 	dodgesprite:hidden(0)
-	overlay:hidden(1)
+	overlay:hidden(0)
 	overlay:blend('add')
 	overlay:diffusealpha(1)
 	overlay:zoomto(sw,sw)
@@ -725,9 +725,9 @@ for i=0,128 do
 	ease{336+i*0.5,0.25,pop,
 	}
 	ease{336+i*0.5,0.5,outExpo,
-		1*switch,'opacitydf',
+		0.5*switch,'opacitydf',
 		100*inv,'square',
-	}
+	plr=2}
 	add{336+i*0.5,2,flip(outQuad),
 		-50,'stealth',
 	plr=2}
