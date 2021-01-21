@@ -694,7 +694,7 @@ setdefault{
 	0,'bumpyzoffset',
 plr=2}
 setdefault{
-	80,'blendalphacb',
+	80,'blendalpha',
 	1500,'wireframegirth',
 	0.1,'rrotz',
 	0.5,'rskewy',
@@ -703,7 +703,7 @@ setdefault{
 	1000,'bumpyxperiod',
 	1000,'bumpyzperiod',
 }
-definemod{'blendalphacb',function(amt)
+definemod{'blendalpha',function(amt)
 	aftsprite1:diffusealpha(amt/100)
 end}
 definemod{'opacitycb',function(opct)
@@ -750,7 +750,7 @@ for i,v in ipairs(bam) do
 			}
 			if k==3 then
 				add{v[1]+k*0.1666,1,impulse[2],
-					100,'blendalphacb',
+					100,'blendalpha',
 					0.2,'opacitycb',
 				}
 				ease{v[1]+k*0.1666,2,flip(outExpo),
@@ -774,7 +774,7 @@ for i,v in ipairs(bam) do
 		end
 	else
 		add{v[1],0.25,pop,
-			90,'blendalphacb',
+			90,'blendalpha',
 			0.8,'opacitycb',
 		}
 		ease{v[1],1,flip(outExpo),
@@ -794,7 +794,7 @@ for i,v in ipairs(bam) do
 	end
 end
 ease{27,84-27,inOutQuad,
-	100,'blendalphacb',
+	100,'blendalpha',
 	1,'opacitycb',
 }
 --xero's feature request
@@ -1058,7 +1058,7 @@ set{336,
 	0,'rrotx',
 	0,'rrotz',
 	0,'rposx',
-	100,'blendalphacb',
+	100,'blendalpha',
 	75,'drawsize',
 	75,'drawsizeback',
 	0,'stripeszoomy',
@@ -1155,11 +1155,6 @@ set{308,
 	0,'digitalzoffset',
 	-20,'digitaloffset',
 }
-ease{308,30,inCirc,
-	50,'digitalperiod',
-	50,'digitalzperiod',
-
-}
 add{308,30,inCirc,
 	9000,'digitaloffset',
 	9000,'digitalzoffset',
@@ -1182,10 +1177,12 @@ for i,v in ipairs(extratone) do
 		-10*inv,'noteskewy'..col+1,
 		-30*inv,'noteskewx'..col,
 		-10*inv,'noteskewx'..col+1,
-		30/2*inv,'skewx'..col,
-		10/2*inv,'skewx'..col+1,
+		30/2*inv,'skewx',
+		10/2*inv,'skewx',
 	}
 end
+set{336, 0,'digital'}
+set{336, 0,'digitalz'}
 
 end)"
 Type = "ActorFrame"
