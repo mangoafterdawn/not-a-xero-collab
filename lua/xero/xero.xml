@@ -171,7 +171,7 @@
 		walloftext:linear(1)
 		walloftext:glow(0.522, .376, .294, 0)
 	end, persist = false}
-	set {196, .65, 'mask'}
+	set {196, .65, 'mask', 100, 'blendalpha', -7, 'rposy'}
 	ease {221, 1, linear, .70, 'mask'}
 	ease {234, 1, linear, .75, 'mask'}
 	ease {266, 1, linear, .80, 'mask'}
@@ -193,7 +193,7 @@
 	}
 	add {221, 3, linear, 200, 'rot'}
 	add {220, 5, bell, 100, 'rotzoom'}
-	ease {248.5, 2, outCubic, 99, 'reverse'}
+	ease {248.5, 2, outCubic, 99, 'reverse', 7, 'rposy'}
 	func {248.5, 2, outCubic, -7, 7, function(y) masksprite:y(scy+y) end}
 	func {248.5, 2, outCubic, sh+20, 40, function(y)
 		PJ[1]:y(y)
