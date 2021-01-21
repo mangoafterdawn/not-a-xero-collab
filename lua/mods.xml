@@ -24,8 +24,7 @@
 	}
 
 	fpslimit(aft1)
-	fpslimit(dodgeaft)
-	fpslimit(exclusionaft)
+	fpslimit(blendaft)
 
 	aftsprite1:SetTexture(aft1:GetTexture())
 	aftsprite1:zoomx(1)
@@ -47,7 +46,7 @@
 	walloftext:hidden(1)
 	walloftext:xy(scx, scy)
 	
-	masksprite:SetTexture(exclusionaft:GetTexture())
+	masksprite:SetTexture(blendaft:GetTexture())
 	masksprite:GetShader():uniformTexture('sampler1', maskimage:GetTexture())
 	definemod {'mask', function(p)
 		if p == 0 then masksprite:hidden(1) else masksprite:hidden(0) end

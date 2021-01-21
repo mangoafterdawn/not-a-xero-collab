@@ -12,19 +12,17 @@ uniform sampler2D sampler1;
 vec2 img2tex( vec2 v ) { return v / textureSize * imageSize; }
 void main()
 {
-    vec2 rat = textureSize / imageSize;
     vec2 uv = imageCoord;
-    vec2 bepis = img2tex( uv * rat );
 
 	vec3 col1 = texture2D( sampler0, img2tex(uv)).rgb;
-	vec3 col2 = texture2D( sampler1,  vec2( bepis.x, 1.0 - bepis.y)).rgb;
+	vec3 col2 = texture2D( sampler1,  vec2( uv.x, 1.0 - uv.y)).rgb;
 
 
     //vec3 col = vec3(0.0);
 
     //Exclusion
 
-    //Addition
+    //Multiply
     col1= col1*col2;
 
     //Lighten
