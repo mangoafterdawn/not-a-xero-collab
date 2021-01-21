@@ -44,6 +44,9 @@
 	overlay3:hidden(1)
 	overlay4:hidden(1)
 	
+	walloftext:hidden(1)
+	walloftext:xy(scx, scy)
+	
 	masksprite:SetTexture(exclusionaft:GetTexture())
 	masksprite:GetShader():uniformTexture('sampler1', maskimage:GetTexture())
 	definemod {'mask', function(p)
@@ -88,11 +91,13 @@
 end)"
 Type = "ActorFrame"
 ><children>
-	<Layer File = "mang/mang.xml"/>
-	<Layer File = "xero/xero.xml"/>
-	<Layer File = "over2.png" Name = "overlay2"/>
-	<Layer File = "over3.png" Name = "overlay3"/>
-	<Layer File = "noise.png" Name = "maskimage"/>
+	<Layer Type = "ActorFrame" InitCommand = "hidden,1"><children>
+		<Layer File = "mang/mang.xml"/>
+		<Layer File = "xero/xero.xml"/>
+		<Layer File = "over2.png" Name = "overlay2"/>
+		<Layer File = "over3.png" Name = "overlay3"/>
+		<Layer File = "noise.png" Name = "maskimage"/>
+	</children></Layer>
 
 
 	<!-- start of drawing -->
@@ -103,6 +108,7 @@ Type = "ActorFrame"
 		Name="aftsprite1"
 	/>
 
+	<Layer File = "walloftext.png" Name = "walloftext"/>
 	<Layer File = "plus.png" Name = "plus"/>
 
 	<Layer Type = "ActorFrame" Name = "proxyframe1"><children>

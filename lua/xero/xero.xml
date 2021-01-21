@@ -149,15 +149,28 @@
 	local NINETY = PI * 0.5
 	local OFFSET = -2 * THETA * 100 / NINETY
 	local sin,cos = math.sin, math.cos
+
+	local fps = 60
+	local speed = 7
 	func {196, function()
+		walloftext:hidden(0)
+		walloftext:croptop(1 - speed / walloftext:GetHeight())
+		walloftext:texcoordvelocity(0, speed / walloftext:GetHeight() * fps)
+		walloftext:vertalign('bottom')
+		walloftext:y(sh)
 		masksprite:zoom(1)
 		masksprite:SetTextureFiltering(true)
-		masksprite:y(scy-7)
+		masksprite:y(scy - speed)
 		masksprite:GetShader():uniform1f('rate', 1)
 		for pn = 1, 2 do
-			PJ[pn]:y(sh+20)
+			PJ[pn]:y(sh + 20)
 		end
 	end}
+	{196, function()
+		walloftext:glow(.522, .376, .294, 1)
+		walloftext:linear(1)
+		walloftext:glow(0.522, .376, .294, 0)
+	end, persist = false}
 	set {196, .85, 'mask'}
 	definemod {
 		'rot', 'rotzoom',
@@ -172,23 +185,44 @@
 				R * 0.01 * rotzoom * sin(THETA + NINETY * (3 + rot * 0.01)),
 				R * 0.01 * rotzoom * sin(THETA + NINETY * (0 + rot * 0.01))
 		end,
-		'movex0', 'movex1', 'movex2', 'movex3', 'movez0', 'movez1', 'movez2', 'movez3',
+		'movex0', 'movex1', 'movex2', 'movex3', 'movez0', 'movez1', 'movez2', 'movez3'
 	}
 	add {221, 3, linear, 200, 'rot'}
 	add {220, 5, bell, 100, 'rotzoom'}
-	ease {248.5, 2, outCubic, 100, 'reverse'}
+	ease {248.5, 2, outCubic, 99, 'reverse'}
 	func {248.5, 2, outCubic, -7, 7, function(y) masksprite:y(scy+y) end}
 	func {248.5, 2, outCubic, sh+20, 40, function(y)
 		PJ[1]:y(y)
 		PJ[2]:y(y)
 	end}
+	func {248.5, 2, outCubic}
+	func {248, 2, inCubic, sh, speed, function(y)
+		walloftext:y(y)
+	end}
+	func {248, 2, bounce, speed, sh, function(h)
+		walloftext:croptop(1 - h / walloftext:GetHeight())
+	end}
+	func {248, 2, outCubic, speed / walloftext:GetHeight() * fps, -speed / walloftext:GetHeight() * fps, function(s)
+		walloftext:texcoordvelocity(0, s)
+	end}
+	func {222, function()
+		P[1]'Judgment''':stoptweening()
+		P[2]'Judgment''':stoptweening()
+	end, persist=false}
+	func {250, function()
+		P[1]'Judgment''':stoptweening()
+		P[2]'Judgment''':stoptweening()
+	end, persist=false}
 	local toggle = 1
 	for i, v in ipairs(P1:GetNoteData(196, 279)) do
 		add {v[1], 1, outBack, toggle == 1 and 100 + OFFSET or -OFFSET, 'rot'}
-		add {v[1], .7, pop, 100, 'rotzoom', 100, 'arrowpath'}
+		add {v[1], .7, pop, 100, 'rotzoom', 100, 'arrowpath', -5000, 'tinyz'}
+		add {v[1], 4, pop, toggle * 30, 'rotationz'}
+		add {v[1], 3, pop, toggle * 20, 'rotationx'}
 		toggle = -toggle
 	end
 	reset {279.5}
+	func {279.5, function() walloftext:hidden(1) end}
 end)"
 	Type = "ActorFrame"
 ><children>
