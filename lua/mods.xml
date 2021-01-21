@@ -83,11 +83,17 @@
 	plus:diffuse(0.7,0.7,0.7,1)
 	plus:blend('weightedmultiply')
 	plus:customtexturerect(0,0,32,32)
+	plus:xy(scx,scy)
+	stripes:hidden(1)
+	stripes:xy(scx,0)
+	stripes:zoomto(sw*8,sw*8)
+	stripes:blend('invertdest')
 	aquad:SetWidth(sw)
 	aquad:SetHeight(sh)
 	aquad:xy(scx, scy)
 	aquad:diffuse(0, 0, 0, 1)
 end)"
+
 Type = "ActorFrame"
 ><children>
 	<Layer Type = "ActorFrame" InitCommand = "hidden,1"><children>
@@ -121,6 +127,7 @@ Type = "ActorFrame"
 			</children></Layer>
 		</children></Layer>
 	</children></Layer>
+	<Layer File = "stripes.png" Name = "stripes"/>
 
 	<Layer Type = "ActorProxy" Name = "PC[1]"/>
 	<Layer Type = "ActorProxy" Name = "PC[2]"/>

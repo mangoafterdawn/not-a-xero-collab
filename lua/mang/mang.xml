@@ -701,17 +701,20 @@ set{336,
 	100,'blendalphacb',
 	75,'drawsize',
 	75,'drawsizeback',
+	0,'stripeszoomy',
 }
 set{336,
+	150,'zoom',
 	50,'arrowpath',
 	100,'stealth',
 	100,'dark',
 	100,'flip',
 plr=2}
 func{336,function()
-	plus:hidden(0)
-	plus:customtexturerect(0,0,12,12)
-	plus:texcoordvelocity(1,1)
+	stripes:hidden(0)
+	stripes:customtexturerect(0,0,12,12)
+	stripes:texcoordvelocity(1,1)
+	stripes:rotationz(90)
 	overlay:hidden(0)
 	overlay:blend('add')
 	overlay:diffusealpha(1)
@@ -725,58 +728,62 @@ func{336,function()
 	aftsprite1:SetTextureFiltering(false)
 	aquad:diffuse(0,0,0,1)
 end}
+definemod{'stripeszoomy',function(y)
+	stripes:zoomy(y/100)
+end}
 definemod{'overlayrz',function(z)
 	overlay4:rotationz(z)
 end}
-for i=0,128 do 
-	local switch=(i+1)%2
-	local inv=2*(i%2)-1
-	ease{336+i*0.5,0.25,pop,
-	}
-	ease{336+i*0.5,0.5,outExpo,
-		0.5*switch,'opacitydf',
-		100*inv,'square',
-	plr=2}
-	add{336+i*0.5,2,flip(outQuad),
-		-50,'stealth',
-	plr=2}
-	add{336+i*0.5,1,outExpo,
-		-90/8,'overlayrz',
-		100,'squareoffset'
-	}
-	ease{336+i*0.5,0.5,flip(inCirc),
-		50,'zoomx',
-	plr=2}
-	ease{336+i*0.5,1,popElastic[2][3],
-		-400,'tinyx',
-	}
-	ease{336+i*0.5,1.25,popElastic[2][4],
-		1000,'arrowpathgirth',
-		-400,'tinyy',
-	}
-	ease{336+i*0.5,0.5,flip(inCirc),
-		10*inv,'alternate',
-	}
-	ease{336+i*4,8,inOutSine,
-		90*inv,'rotationz',
-	}
-	ease{336+i*4+4,8,inOutSine,
-		-90*inv,'rotationz',
-	}
-	if i%4==0 then
-	elseif i%4==1 then
-	
-	elseif i%4==2 then
-	mincr1=mincr1+1
-	local inv=2*(mincr1%2)-1
-	ease{336+i*4,8,inOutSine,
-		50*inv,'rotationx',
-		-rad(50*inv),'confusionxoffset',
-	}
-	ease{336+i*4+4,8,inOutSine,
-		-50*inv,'rotationx',
-		rad(50*inv),'confusionxoffset',
-	}
+for i=0,128+64 do 
+	if (i<=93 or i>=98) then
+		local switch=(i+1)%2
+		local inv=2*(i%2)-1
+		ease{336+i*0.5,0.5,outExpo,
+			0.5*switch,'opacitydf',
+			100*inv,'square',
+		plr=2}
+		add{336+i*0.5,2,flip(outQuad),
+			scy,'stripeszoomy',
+			-50,'stealth',
+		plr=2}
+		add{336+i*0.5,1,outExpo,
+			-90/8,'overlayrz',
+			100,'squareoffset',
+		}
+		ease{336+i*0.5,0.5,flip(inCirc),
+			50,'zoomx',
+		plr=2}
+		ease{336+i*0.5,1,popElastic[2][3],
+			-400,'tinyx',
+		}
+		ease{336+i*0.5,1.25,popElastic[2][4],
+			1000,'arrowpathgirth',
+			-400,'tinyy',
+		}
+		ease{336+i*0.5,0.5,flip(inCirc),
+			10*inv,'alternate',
+		}
+		ease{336+i*4,8,inOutSine,
+			90*inv,'rotationz',
+		}
+		ease{336+i*4+4,8,inOutSine,
+			-90*inv,'rotationz',
+		}
+		if i%4==0 then
+		elseif i%4==1 then
+		
+		elseif i%4==2 then
+		mincr1=mincr1+1
+		local inv=2*(mincr1%2)-1
+		ease{336+i*4,8,inOutSine,
+			50*inv,'rotationx',
+			-rad(50*inv),'confusionxoffset',
+		}
+		ease{336+i*4+4,8,inOutSine,
+			-50*inv,'rotationx',
+			rad(50*inv),'confusionxoffset',
+		}
+		end
 	end
 end
 
