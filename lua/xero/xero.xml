@@ -172,8 +172,10 @@
 		walloftext:glow(0.522, .376, .294, 0)
 	end, persist = false}
 	set {196, .65, 'mask', 100, 'blendalpha', -7, 'rposy'}
-	ease {221, 1, linear, .70, 'mask'}
-	ease {234, 1, linear, .75, 'mask'}
+	func {196, function() blendsprite:SetTextureFiltering(false) end}
+
+	ease {221, 1, linear, .70, 'mask', 2, 'rskewx', -.5, 'rskewy'}
+	ease {234, 1, linear, .75, 'mask', 0, 'rskewx', -3, 'rskewy'}
 	ease {266, 1, linear, .80, 'mask'}
 	ease {276, 1, linear, .85, 'mask'}
 	definemod {
