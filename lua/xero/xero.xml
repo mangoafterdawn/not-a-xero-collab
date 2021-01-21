@@ -171,7 +171,9 @@
 		walloftext:linear(1)
 		walloftext:glow(0.522, .376, .294, 0)
 	end, persist = false}
-	set {196, .85, 'mask'}
+	set {196, .65, 'mask'}
+	ease {221, 1, linear, .75, 'mask'}
+	ease {234, 1, linear, .85, 'mask'}
 	definemod {
 		'rot', 'rotzoom',
 		function(rot, rotzoom)
