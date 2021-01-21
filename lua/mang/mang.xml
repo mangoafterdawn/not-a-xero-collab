@@ -378,15 +378,26 @@ setdefault{
 	1000,'bumpyxperiod',
 	1000,'bumpyzperiod',
 }
-definemod{'blendalphacb','opacitycb',function(amt,opct)
+definemod{'blendalphacb',function(amt)
 	aftsprite1:diffusealpha(amt/100)
-	exclusionsprite:GetShader():uniform1f('opacity',opct)
+end}
+definemod{'opacitycb',function(opct)
+	exclusionshaderholder:GetShader():uniform1f('opacity',opct)
+	if opct ~= 0 then
+		blendsprite:SetShader(exclusionshaderholder:GetShader())
+	end
 end}
 definemod{'opacitycd',function(opct)
-	dodgesprite:GetShader():uniform1f('opacity',opct)
+	dodgeshaderholder:GetShader():uniform1f('opacity',opct)
+	if opct ~= 0 then
+		blendsprite:SetShader(dodgeshaderholder:GetShader())
+	end
 end}
 definemod{'opacitydf',function(opct)
-	diffsprite:GetShader():uniform1f('opacity',opct)
+	diffshaderholder:GetShader():uniform1f('opacity',opct)
+	if opct ~= 0 then
+		blendsprite:SetShader(diffshaderholder:GetShader())
+	end
 end}
 definemod{'rskewx','rskewy','rrotx','rroty','rrotz','rzoom','rposx','rposy',function(rsx,rsy,rx,ry,rz,rzm,rpx,rpy)
 	aftsprite1:skewx(rsx/100)
@@ -547,7 +558,7 @@ for i,v in ipairs(bass) do
 	local switch=(i+1)%2
 	local switch2=(i)%2
 	local inv=2*(i%2)-1
-	ease{v[1],1,flip(outExpo),
+	ease{v[1],0.5,flip(outExpo),
 		2,'mask'
 	}
 	ease{v[1]-0.1,0.5,flip(outExpo),
@@ -598,13 +609,13 @@ for i,v in ipairs(bass) do
 	}
 	ease{v[1]-0.1,1.75,popElastic[2][4],
 		-100,'tinyx',
+		1000,'arrowpathgirth',
 	}
 	ease{v[1]-0.1,0.5,flip(outExpo),
-		200*inv,'sawtooth',
+		200*inv,'tanbumpy',
 		5*inv,'rotationz',
 		-40*inv,'noteskewx',
 		-100,'tinyy',
-		1000,'arrowpathgirth',
 	}
 	if v[1]>=140 then 
 		ease{v[1],0.5,outExpo,
@@ -667,7 +678,7 @@ add{140,196-140,inQuad,
 
 func{84,function()
 	plus:hidden(1)
-	exclusionsprite:GetShader():uniformTexture('sampler1', overlay2:GetTexture())
+	exclusionshaderholder:GetShader():uniformTexture('sampler1', overlay2:GetTexture())
 	aquad:diffuse(0.0,0.0,0.0,1)
 end}
 

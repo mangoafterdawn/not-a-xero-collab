@@ -33,12 +33,12 @@
 	aftsprite1:diffusealpha(1)
 	aftsprite1:hidden(1)
 
-	exclusionsprite:GetShader():uniformTexture('sampler1', overlay:GetTexture())
-	exclusionsprite:SetTexture(exclusionaft:GetTexture())
-	dodgesprite:GetShader():uniformTexture('sampler1', overlay2:GetTexture())
-	dodgesprite:SetTexture(dodgeaft:GetTexture())
-	diffsprite:GetShader():uniformTexture('sampler1', overlay3:GetTexture())
-	diffsprite:SetTexture(diffaft:GetTexture())
+	blendsprite:SetTexture(blendaft:GetTexture())
+
+	exclusionshaderholder:GetShader():uniformTexture('sampler1', overlay:GetTexture())
+	dodgeshaderholder:GetShader():uniformTexture('sampler1', overlay2:GetTexture())
+	diffshaderholder:GetShader():uniformTexture('sampler1', overlay3:GetTexture())
+
 	overlay:hidden(1)
 	overlay2:hidden(1)
 	overlay3:hidden(1)
@@ -97,6 +97,9 @@ Type = "ActorFrame"
 		<Layer File = "over2.png" Name = "overlay2"/>
 		<Layer File = "over3.png" Name = "overlay3"/>
 		<Layer File = "noise.png" Name = "maskimage"/>
+		<Layer Frag = "shaders/exclusion.frag" Name = "exclusionshaderholder"/>
+		<Layer Frag = "shaders/difference.frag" Name = "diffshaderholder"/>
+		<Layer Frag = "shaders/colordodge.frag" Name = "dodgeshaderholder"/>
 	</children></Layer>
 
 
@@ -128,28 +131,11 @@ Type = "ActorFrame"
 	<Layer File = "over4.png" Name = "overlay4"/>
 	<Layer Type = "Sprite" Name = "masksprite" Frag = "shaders/mask.frag"/>
 
-	<Layer Type = "ActorFrameTexture" InitCommand = "%xero.aft" Name = "exclusionaft"/>
+	<Layer Type = "ActorFrameTexture" InitCommand = "%xero.aft" Name = "blendaft"/>
 	<Layer
 		Type="Sprite"
-		Frag="shaders/exclusion.frag"
 		InitCommand="%xero.sprite"
-		Name="exclusionsprite"
-	/>
-
-	<Layer Type = "ActorFrameTexture" InitCommand = "%xero.aft" Name = "dodgeaft"/>
-	<Layer
-		Type="Sprite"
-		Frag="shaders/colordodge.frag"
-		InitCommand="%xero.sprite"
-		Name="dodgesprite"
-	/>
-
-	<Layer Type = "ActorFrameTexture" InitCommand = "%xero.aft" Name = "diffaft"/>
-	<Layer
-		Type="Sprite"
-		Frag="shaders/difference.frag"
-		InitCommand="%xero.sprite"
-		Name="diffsprite"
+		Name="blendsprite"
 	/>
 
 	<Layer
