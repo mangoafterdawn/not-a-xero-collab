@@ -852,6 +852,10 @@ plr=2}
 ease{82,2,inOutQuad,
 	0,'bumpyx',
 	0,'bumpyz',
+	120,'drawsize',
+	120,'arrowpathdrawsize',
+	80,'drawsizeback',
+	80,'arrowpathdrawsizeback',
 }
 
 ease{84,2,inOutSine,
@@ -886,6 +890,9 @@ for i,v in ipairs(ebam) do
 			}
 		end
 	elseif v[3]==2 then
+		ease{v[1],0.25,flip(inExpo),
+			100,'invert',
+		}
 		ease{v[1],1,flip(outExpo),
 			-100,'tiny',
 			-20*inv,'alternate',
@@ -901,6 +908,49 @@ for i,v in ipairs(ebam) do
 		swap{v[1]+(0.166/2*2),0.166/2,outExpo,'urld',plr=2}
 		swap{v[1]+(0.166/2*3),0.166/2,outExpo,'ldur',plr=2}
 	end
+end
+
+extratone2 = {
+	{166.000,2,1},
+	{166.250,2,1},
+	{166.500,2,1},
+	{166.625,2,1},
+	{166.750,2,1},
+	{166.875,2,1},
+	{167.000,2,1},
+	{167.083,2,1},
+	{167.167,2,1},
+	{167.250,2,1},
+	{167.333,2,1},
+	{167.417,2,1},
+	{167.500,2,1},
+}
+for r=0,1 do
+	for i,v in ipairs(extratone2) do
+		local inv=2*(i%2)-1
+		add{v[1]+r*28,1,flip(outExpo),
+			100*inv,'sawtooth',
+			40*inv,'tandigitalz',
+			40*inv,'skewx',
+		plr=2}
+		add{v[1]+r*28,1,flip(outExpo),
+			-200*inv,'tiny',
+		}
+	end
+end
+for i,v in ipairs(longholds) do
+	local inv=2*(i%2)-1
+	local length=v[4]
+	if length==nil then length=1 end
+	set{v[1],400,'bumpyzperiod',400,'bumpyxperiod',200,'bumpyxoffset'}
+	add{v[1],v[3],inOutQuad,
+		400,'bumpyzoffset',
+		400,'bumpyxoffset',
+	}
+	ease{v[1],v[3],inOutQuad,
+		100*inv,'bumpyz',
+		-100*inv,'bumpyx',
+	}
 end
 
 for i,v in ipairs(bass) do
@@ -1000,6 +1050,7 @@ for i=0,12 do
 		}
 	end
 end
+
 set{138,100,'tiny'}
 ease{138.5,1.25,inBack,
 	0,'tiny',
@@ -1233,8 +1284,14 @@ for i=0,1 do
 	ease{335+i*0.25,1,impulse[0.5],
 		-400,'tiny',
  	}
-
 end
+--break
+ease{383,1,inOutCirc,
+	360,'rotationy',
+	-rad(360),'confusionyoffset',
+}
+--
+
 set{431,
 	-100,'spiralholds',
 	1000000,'spiralxperiod',
@@ -1280,48 +1337,6 @@ set{62,
 	4,'rskewx',
 	4,'rskewy',
 }]]--
-extratone2 = {
-	{166.000,2,1},
-	{166.250,2,1},
-	{166.500,2,1},
-	{166.625,2,1},
-	{166.750,2,1},
-	{166.875,2,1},
-	{167.000,2,1},
-	{167.083,2,1},
-	{167.167,2,1},
-	{167.250,2,1},
-	{167.333,2,1},
-	{167.417,2,1},
-	{167.500,2,1},
-}
-for r=0,1 do
-	for i,v in ipairs(extratone2) do
-		local inv=2*(i%2)-1
-		add{v[1]+r*28,1,flip(outExpo),
-			100*inv,'sawtooth',
-			40*inv,'tandigitalz',
-			40*inv,'skewx',
-		plr=2}
-		add{v[1]+r*28,1,flip(outExpo),
-			-200*inv,'tiny',
-		}
-	end
-end
-for i,v in ipairs(longholds) do
-		local inv=2*(i%2)-1
-		local length=v[4]
-		if length==nil then length=1 end
-		set{v[1],400,'bumpyzperiod',400,'bumpyxperiod',200,'bumpyxoffset'}
-		add{v[1],v[3],inOutQuad,
-			400,'bumpyzoffet',
-			400,'bumpyzoffet',
-		}
-		ease{v[1],v[3],inOutQuad,
-			200*inv,'bumpyz',
-			-200*inv,'bumpyx',
-		plr=1}
-	end
 
 end)"
 Type = "ActorFrame"
