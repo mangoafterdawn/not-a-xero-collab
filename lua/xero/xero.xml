@@ -171,13 +171,12 @@
 		walloftext:linear(1)
 		walloftext:glow(0.522, .376, .294, 0)
 	end, persist = false}
-	set {196, .65, 'mask', 100, 'blendalpha', -7, 'rposy'}
-	func {196, function() blendsprite:SetTextureFiltering(false) end}
+	set {196, .65, 'mask', 60, 'blendalpha', -5, 'rposy'}
 
-	ease {221, 1, linear, .70, 'mask', 2, 'rskewx', -.5, 'rskewy'}
-	ease {234, 1, linear, .75, 'mask', 0, 'rskewx', -3, 'rskewy'}
-	ease {266, 1, linear, .80, 'mask'}
-	ease {276, 1, linear, .85, 'mask'}
+	ease {221, 1, linear, 75, 'blendalpha', .70, 'mask', 1, 'rskewx', -.5, 'rskewy', 0, 'rrotx', 0, 'rroty', 0, 'rrotz', 0, 'rposx'}
+	ease {234, 1, linear, 80, 'blendalpha', .75, 'mask', -.2, 'rskewx', -1, 'rskewy'}
+	ease {266, 1, linear, 80, 'blendalpha', .8, 'mask', -1, 'rskewx', -2, 'rskewy', 4, 'rposy'}
+	ease {276, 1, linear, 100, 'blendalpha', .45, 'mask', 0, 'rskewx', 0, 'rskewy'}
 	definemod {
 		'rot', 'rotzoom',
 		function(rot, rotzoom)
@@ -227,8 +226,31 @@
 		add {v[1], 3, pop, toggle * 20, 'rotationx'}
 		toggle = -toggle
 	end
-	reset {279.5}
-	func {279.5, function() walloftext:hidden(1) end}
+	add {279, 1, outBack, toggle == 1 and 100 + OFFSET or -OFFSET, 'rot'}
+	func{279.5, function()
+		PP[1]:hidden(1)
+		PP[2]:hidden(1)
+		Pp[1]:hidden(0)
+		Pp[2]:hidden(0)
+	end}
+	func {279, 1, linear, 7, 0, function(y) masksprite:y(math.floor(scy + y)) end}
+	reset {279, 1, linear, exclude = {'reverse', 'rot', 'mask', 'blendalpha', 'rskewx', 'rskewy', 'rrotx', 'rroty', 'rrotz', 'rposx'}}
+	reset {280, exclude = {'reverse', 'rot', 'blendalpha'}}
+	func {280, function()
+		PP[1]:hidden(0)
+		PP[2]:hidden(0)
+		Pp[1]:hidden(1)
+		Pp[1]:hidden(1)
+		walloftext:hidden(1)
+		fpslimit(aft1, 60, false)
+		masksprite:GetShader():uniform1f('rate', 0.03)
+		masksprite:GetShader():uniformTexture('sampler1', maskimage2:GetTexture())
+	end}
+
+	reset {307.999}
+	func {308, function()
+		fpslimit(aft1, 60)
+	end}
 end)"
 	Type = "ActorFrame"
 ><children>
