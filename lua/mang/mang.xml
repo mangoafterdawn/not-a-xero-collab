@@ -1138,15 +1138,17 @@ for i=0,128+64 do
 		ease{336+i*0.5,0.5,flip(inCirc),
 			10*inv,'alternate',
 		}
-		ease{336+i*4,8,inOutSine,
-			90*inv,'rotationz',
-		}
-		ease{336+i*4+4,8,inOutSine,
-			-90*inv,'rotationz',
-		}
 		if i%4==0 then
 		elseif i%4==1 then
+		mincr2=mincr2+1
+		local inv=2*(mincr2%2)-1
 		
+		ease{336+i*4,16,inOutSine,
+			45*inv,'rotationz',
+		}
+		ease{336+i*4+4,16,inOutSine,
+			-45*inv,'rotationz',
+		}
 		elseif i%4==2 then
 		mincr1=mincr1+1
 		local inv=2*(mincr1%2)-1
@@ -1232,7 +1234,7 @@ set{431,
 	--40,'arrowpathgrain',
 }
 ease{432,1.5,inQuad,
-	0,'stealth',
+	10,'stealth',
 	20,'spiralx',
 	20,'spiraly',
 	20,'spiralz',
@@ -1241,15 +1243,17 @@ plr=2}
 ease{432,1.5,inQuad,
 	100,'dark',
 	100,'stealth',
-	100,'hidenoteflash',
 plr=1}
 ease{432,1.5,inQuad,
+	180,'hidden',
+	100,'hidenoteflash',
 	100,'zoom',
 	-500,'tiny',
 	50,'flip',
 	0,'square',
 	0,'z',
-	100,'rzoom'
+	100,'rzoom',
+	0,'arrowpath',
 }
 ease{433,7.5,inQuad,
 	40,'grain',
