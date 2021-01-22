@@ -88,6 +88,9 @@
 	stripes:xy(scx,0)
 	stripes:zoomto(sw*8,sw*8)
 	stripes:blend('invertdest')
+	stripes2:xy(scx,0)
+	stripes2:zoomto(sw*8,sw*8)
+	stripes2:blend('invertdest')
 	aquad:SetWidth(sw)
 	aquad:SetHeight(sh)
 	aquad:xy(scx, scy)
@@ -123,11 +126,12 @@ Type = "ActorFrame"
 		<Layer Type = "ActorFrame" Name = "proxyframe2"><children>
 			<Layer Type = "ActorFrame" Name = "proxyframe3"><children>
 				<Layer Type = "ActorProxy" Name = "PP[1]"/>
+				<Layer File = "stripes.png" Name = "stripes"/>
 				<Layer Type = "ActorProxy" Name = "PP[2]"/>
+				<Layer File = "stripes.png" Name = "stripes2"/>
 			</children></Layer>
 		</children></Layer>
 	</children></Layer>
-	<Layer File = "stripes.png" Name = "stripes"/>
 
 	<Layer Type = "ActorProxy" Name = "PC[1]"/>
 	<Layer Type = "ActorProxy" Name = "PC[2]"/>

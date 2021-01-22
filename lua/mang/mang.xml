@@ -671,14 +671,6 @@ extratone = {
 	{334.875,0,1},
 	{334.938,0,1},
 	{335.000,0,1},
-	{335.063,0,1},
-	{335.125,0,1},
-	{335.188,0,1},
-	{335.250,0,1},
-	{335.313,0,1},
-	{335.375,0,1},
-	{335.438,0,1},
-	{335.500,0,1},
 }
 
 
@@ -700,6 +692,8 @@ setdefault{
 	0.5,'rskewy',
 	0.5,'rskewx',
 	100,'rzoom',
+	100,'rzoomx',
+	100,'rzoomy',
 	1000,'bumpyxperiod',
 	1000,'bumpyzperiod',
 }
@@ -723,6 +717,10 @@ definemod{'opacitydf',function(opct)
 	if opct ~= 0 then
 		blendsprite:SetShader(diffshaderholder:GetShader())
 	end
+end}
+definemod{'rzoomx','rzoomy',function(rzmx,rzmy)
+	aftsprite1:zoomx(rzmx/100)
+	aftsprite1:zoomy(rzmy/100)
 end}
 definemod{'rskewx','rskewy','rrotx','rroty','rrotz','rzoom','rposx','rposy',function(rsx,rsy,rx,ry,rz,rzm,rpx,rpy)
 	aftsprite1:skewx(rsx/100)
@@ -1048,20 +1046,18 @@ mincr0=0
 mincr1=0
 mincr2=0
 set{336,
-	700,'attenuatex',
+	400,'attenuatex',
 	100,'zoom',
 	6000,'arrowpathdrawsize',
 	6000,'arrowpathdrawsizeback',
-	101,'rzoom',
-	0,'rskewy',
-	0,'rskewx',
-	0,'rrotx',
 	0,'rrotz',
-	0,'rposx',
+	106,'rzoom',
+	0.9,'opacitydf',
 	100,'blendalpha',
 	75,'drawsize',
 	75,'drawsizeback',
-	0,'stripeszoomy',
+	sh,'stripeszoomy',
+	25,'stripespeed'
 }
 set{336,
 	150,'zoom',
@@ -1069,27 +1065,35 @@ set{336,
 	100,'stealth',
 	100,'dark',
 	100,'flip',
+	-200,'z',
 plr=2}
 func{336,function()
 	stripes:hidden(0)
-	stripes:customtexturerect(0,0,12,12)
-	stripes:texcoordvelocity(1,1)
+	stripes:customtexturerect(0,0,24,24)
 	stripes:rotationz(90)
+	stripes2:hidden(0)
+	stripes2:customtexturerect(0,0,24,24)
+	stripes2:rotationz(90)
 	overlay:hidden(0)
 	overlay:blend('add')
-	overlay:diffusealpha(1)
+	overlay:diffusealpha(0.1)
 	overlay:zoomto(sw,sw)
 	overlay:xy(scx,scy)
 	overlay4:hidden(0)
 	overlay4:blend('subtract')
-	overlay4:diffusealpha(0.2)
+	overlay4:diffusealpha(0)
 	overlay4:zoomto(sw*1.5,sw*1.5)
 	overlay4:xy(scx,scy)
-	aftsprite1:SetTextureFiltering(false)
+	blendsprite:SetTextureFiltering(true)
 	aquad:diffuse(0,0,0,1)
 end}
 definemod{'stripeszoomy',function(y)
 	stripes:zoomy(y/100)
+	stripes2:zoomy(y/100)
+end}
+definemod{'stripespeed',function(x)
+	stripes:texcoordvelocity(x,0)
+	stripes2:texcoordvelocity(x,0)
 end}
 definemod{'overlayrz',function(z)
 	overlay4:rotationz(z)
@@ -1098,13 +1102,22 @@ for i=0,128+64 do
 	if (i<=93 or i>=98) then
 		local switch=(i+1)%2
 		local inv=2*(i%2)-1
-		ease{336+i*0.5,0.5,outExpo,
-			0.5*switch,'opacitydf',
-			100*inv,'square',
+		add{336+i*0.5,2,flip(outSine),
+			-25,'stealth',
+			-100,'flip',
+			40*inv,'skewy',
+			10,'rroty',
+			10,'rrotx',
+			-5,'rskewy',
+			-5,'rskewx',
 		plr=2}
-		add{336+i*0.5,2,flip(outQuad),
-			scy,'stripeszoomy',
-			-50,'stealth',
+		add{336+i*0.5,0.75,flip(outSine),
+			pie/2*inv,'confusionoffset',
+			5000,'arrowpathgirth',
+		plr=2}
+		ease{336+i*0.5,0.5,outExpo,
+			--0.5*switch,'opacitydf',
+			100*inv,'square',
 		plr=2}
 		add{336+i*0.5,1,outExpo,
 			-90/8,'overlayrz',
@@ -1117,8 +1130,10 @@ for i=0,128+64 do
 			-400,'tinyx',
 		}
 		ease{336+i*0.5,1.25,popElastic[2][4],
-			1000,'arrowpathgirth',
 			-400,'tinyy',
+		}
+		ease{336+i*0.5,0.4,flip(inExpo),
+			0,'stripespeed',
 		}
 		ease{336+i*0.5,0.5,flip(inCirc),
 			10*inv,'alternate',
@@ -1147,32 +1162,48 @@ for i=0,128+64 do
 	end
 end
 set{308,
-	100,'arrowpath',
+	--100,'arrowpath',
 	--200,'digital',
 	--200,'digitalz',
 	-20,'digitalzperiod',
 	-20,'digitalperiod',
 	0,'digitalzoffset',
-	-20,'digitaloffset',
+	1000,'digitaloffset',
+	--50,'arrowpathgrain',
+}
+ease{308,30,inCirc,
+	95,'blendalpha',
 }
 add{308,30,inCirc,
-	9000,'digitaloffset',
-	9000,'digitalzoffset',
+	10000,'digitaloffset',
+	10000,'digitalzoffset',
 }
 for i,v in ipairs(extratone) do
 	local inv=2*(i%2)-1
 	local col=i%4
 	add{v[1],0.25,outExpo,
-		50,'digitaloffset',
-		50,'digitalzoffset',
-		20,'digital',
-		20,'digitalz',
+		100,'digitaloffset',
+		100,'digitalzoffset',
+		5,'digital',
+		5,'digitalz',
+		10,'attenuatex',
 	}
+	add{v[1],0.25,pop,
+		0.1,'opacitydf',
+	}
+	ease{v[1],0.25,outExpo,
+		360*(i/#extratone),'rotationy',
+		-rad(360*(i/#extratone)),'confusionyoffset',
+		1*(i/#extratone),'opacitydf',
+	}
+	add{v[1],0.0625,flip(outQuad),
+		1000,'arrowpathgirth',
+		100,'arrowpath',
+	plr=2}
 	add{v[1],0.25,flip(outExpo),
 		-300,'tiny',
-		rad(30*inv),'confusionoffset',
-
-		-300,'tiny'..col,
+		rad(15*inv),'confusionoffset',
+		-200,'tiny'..col,
 		-30*inv,'noteskewy'..col,
 		-10*inv,'noteskewy'..col+1,
 		-30*inv,'noteskewx'..col,
@@ -1181,8 +1212,48 @@ for i,v in ipairs(extratone) do
 		10/2*inv,'skewx',
 	}
 end
-set{336, 0,'digital'}
-set{336, 0,'digitalz'}
+ease{335,1,outExpo,
+	0,'digital',
+ 	0,'digitalz',
+ }
+for i=0,1 do 
+	ease{335+i*0.25,1,impulse[0.5],
+		-400,'tiny',
+ 	}
+
+end
+set{431,
+	-100,'spiralholds',
+	1000000,'spiralxperiod',
+	1000000,'spiralzperiod',
+	--1000000,'spiralyperiod',
+	500000,'spiralzoffset',
+	4000,'grain',
+	--40,'arrowpathgrain',
+}
+ease{432,1.5,inQuad,
+	0,'stealth',
+	20,'spiralx',
+	20,'spiraly',
+	20,'spiralz',
+	50,'reverse',
+plr=2}
+ease{432,1.5,inQuad,
+	100,'dark',
+	100,'stealth',
+	100,'hidenoteflash',
+plr=1}
+ease{432,1.5,inQuad,
+	100,'zoom',
+	-500,'tiny',
+	50,'flip',
+	0,'square',
+	0,'z',
+	100,'rzoom'
+}
+ease{433,7.5,inQuad,
+	40,'grain',
+}
 
 end)"
 Type = "ActorFrame"
