@@ -196,7 +196,7 @@
 	add {220, 5, bell, 100, 'rotzoom'}
 	ease {248.5, 2, outCubic, 99, 'reverse', 7, 'rposy'}
 	func {248.5, 2, outCubic, -7, 7, function(y) masksprite:y(scy+y) end}
-	func {248.5, 2, outCubic, sh+20, 40, function(y)
+	func {248.5, 2, outCubic, sh + 20, 40, function(y)
 		PJ[1]:y(y)
 		PJ[2]:y(y)
 	end}
@@ -221,7 +221,7 @@
 	local toggle = 1
 	for i, v in ipairs(P1:GetNoteData(196, 279)) do
 		add {v[1], 1, outBack, toggle == 1 and 100 + OFFSET or -OFFSET, 'rot'}
-		add {v[1], .7, pop, 100, 'rotzoom', 100, 'arrowpath', -5000, 'tinyz'}
+		add {v[1], .7, pop, 100, 'rotzoom', -5000, 'tinyz'}
 		add {v[1], 4, pop, toggle * 30, 'rotationz'}
 		add {v[1], 3, pop, toggle * 20, 'rotationx'}
 		toggle = -toggle
@@ -239,6 +239,7 @@
 	end}
 	func {279, 1, linear, 7, 0, function(y) masksprite:y(math.floor(scy + y)) end}
 	reset {279, 1, linear, exclude = {'reverse', 'rot', 'mask', 'blendalpha', 'rskewx', 'rskewy', 'rrotx', 'rroty', 'rrotz', 'rposx'}}
+
 	func {280, function()
 		PP[1]:hidden(0)
 		PP[2]:hidden(0)
@@ -248,7 +249,6 @@
 		PC[2]:hidden(0)
 		Pp[1]:hidden(1)
 		Pp[1]:hidden(1)
-
 		PJ[1]:y(scy)
 		PJ[2]:y(scy)
 		walloftext:hidden(1)
@@ -257,9 +257,51 @@
 		masksprite:GetShader():uniformTexture('sampler1', maskimage2:GetTexture())
 	end}
 
+	set {280, 0, 'mask'}
+	set {280, 50, 'reverse', 100, 'spiralholds'}
+	local x, y, z
+	local offset
+	local beat
+	local function apply(fn, percent)
+		if percent ~= 0 then
+			local nx, ny, nz = fn(offset, beat)
+			x = x * (1 - 0.01 * percent) + nx * percent * 0.01
+			y = y * (1 - 0.01 * percent) + ny * percent * 0.01
+			z = z * (1 - 0.01 * percent) + nz * percent * 0.01
+		end
+	end
+	aux 'circle'
+	local function circle(offset, beat)
+		return 0, math.cos(offset/100 + beat)*212, math.sin(offset/100 + beat)*212
+	end
+	func {
+		280, 308, mode = 'end',
+		function(bea, poptions)
+			beat = bea
+			for pn = 1, 2 do
+				for which = 0, 39 do
+					local m = poptions[pn]
+					offset = which * 20
+					x, y, z = 0, 212-offset, 0
+					apply(circle, m.circle)
+					P[pn]:SetXSpline(which, -1, x, offset, -1)
+					P[pn]:SetYSpline(which, -1, y, offset, -1)
+					P[pn]:SetZSpline(which, -1, z, offset, -1)
+				end
+			end
+		end,
+		persist = false,
+	}
+	ease {280, 5, outBounce, 100, 'circle'}
+	ease {304, 4, linear, 0, 'circle'}
 	reset {307.999}
-	func {308, function()
+	func {309, function()
 		fpslimit(aft1, 60)
+		for pn = 1, 2 do
+			P[pn]:ResetXSplines(-1)
+			P[pn]:ResetYSplines(-1)
+			P[pn]:ResetZSplines(-1)
+		end
 	end}
 end)"
 	Type = "ActorFrame"
