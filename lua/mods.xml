@@ -7,6 +7,8 @@
 	-- player proxies
 	for pn = 1, #PP do
 		PP[pn]:SetTarget(P[pn])
+		Pp[pn]:SetTarget(P[pn])
+		Pp[pn]:hidden(1)
 		P[pn]:hidden(1)
 	end
 	-- your code goes here here:
@@ -102,6 +104,7 @@ Type = "ActorFrame"
 		<Layer File = "over2.png" Name = "overlay2"/>
 		<Layer File = "over3.png" Name = "overlay3"/>
 		<Layer File = "noise.png" Name = "maskimage"/>
+		<Layer File = "masking2.png" Name = "maskimage2" />
 		<Layer Frag = "shaders/exclusion.frag" Name = "exclusionshaderholder"/>
 		<Layer Frag = "shaders/difference.frag" Name = "diffshaderholder"/>
 		<Layer Frag = "shaders/colordodge.frag" Name = "dodgeshaderholder"/>
@@ -150,6 +153,8 @@ Type = "ActorFrame"
 		Name="aft1"
 	/>
 
+	<Layer Type = "ActorProxy" Name = "Pp[1]"/>
+	<Layer Type = "ActorProxy" Name = "Pp[2]"/>
 
 	<Layer Name = "spritepool[1]" Type = "Sprite"/>
 	<Layer Name = "spritepool[2]" Type = "Sprite"/>
