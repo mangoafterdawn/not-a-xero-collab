@@ -97,6 +97,10 @@
 	aquad:SetHeight(sh)
 	aquad:xy(scx, scy)
 	aquad:diffuse(0, 0, 0, 1)
+	nitg:xy(scx,scy)
+	nitg:zoomto(sw,sh)
+	nitg:blend('invertdest')
+	nitg:hidden(1)
 end)"
 
 Type = "ActorFrame"
@@ -151,6 +155,7 @@ Type = "ActorFrame"
 		Name="blendsprite"
 	/>
 
+	<Layer File = "notitg.png" Name = "nitg"/>
 	<Layer
 		Type="ActorFrameTexture"
 		InitCommand="%xero.aft"
