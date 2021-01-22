@@ -1180,6 +1180,27 @@ add{308,30,inCirc,
 	10000,'digitaloffset',
 	10000,'digitalzoffset',
 }
+for i=1,#extratone-1 do
+	local inv=2*(i%2)-1
+	local col=i%4
+	local v1=extratone[i]
+	local v2=extratone[i+1]
+	local length=v2[1]-v1[1]
+	add{v1[1],length,flip(outQuad),
+		-300,'tiny',
+		-200,'tiny'..col,
+	}
+	add{v1[1],length*2,flip(outExpo),
+		-15*(i/#extratone)*inv,'rotationz',
+		rad(15*inv),'confusionoffset',
+		-30*inv,'noteskewy'..col,
+		-10*inv,'noteskewy'..col+1,
+		-30*inv,'noteskewx'..col,
+		-10*inv,'noteskewx'..col+1,
+		30/2*inv,'skewx',
+		10/2*inv,'skewx',
+	}
+end
 for i,v in ipairs(extratone) do
 	local inv=2*(i%2)-1
 	local col=i%4
@@ -1187,7 +1208,7 @@ for i,v in ipairs(extratone) do
 		100,'digitaloffset',
 		100,'digitalzoffset',
 		5,'digital',
-		5,'digitalz',
+		-5,'digitalz',
 		10,'attenuatex',
 	}
 	add{v[1],0.25,pop,
@@ -1202,17 +1223,7 @@ for i,v in ipairs(extratone) do
 		1000,'arrowpathgirth',
 		100,'arrowpath',
 	plr=2}
-	add{v[1],0.25,flip(outExpo),
-		-300,'tiny',
-		rad(15*inv),'confusionoffset',
-		-200,'tiny'..col,
-		-30*inv,'noteskewy'..col,
-		-10*inv,'noteskewy'..col+1,
-		-30*inv,'noteskewx'..col,
-		-10*inv,'noteskewx'..col+1,
-		30/2*inv,'skewx',
-		10/2*inv,'skewx',
-	}
+	
 end
 ease{335,1,outExpo,
 	0,'digital',
@@ -1245,7 +1256,7 @@ ease{432,1.5,inQuad,
 	100,'stealth',
 plr=1}
 ease{432,1.5,inQuad,
-	180,'hidden',
+	100,'hidden',
 	100,'hidenoteflash',
 	100,'zoom',
 	-500,'tiny',
@@ -1257,7 +1268,60 @@ ease{432,1.5,inQuad,
 }
 ease{433,7.5,inQuad,
 	40,'grain',
+	0.5,'mask',
 }
+--[[reset{61.5}
+func{62,function()
+	aquad:diffuse(1,1,1,1)
+end}
+set{62,
+	100,'blendalpha',
+	101,'rzoom',
+	4,'rskewx',
+	4,'rskewy',
+}]]--
+extratone2 = {
+	{166.000,2,1},
+	{166.250,2,1},
+	{166.500,2,1},
+	{166.625,2,1},
+	{166.750,2,1},
+	{166.875,2,1},
+	{167.000,2,1},
+	{167.083,2,1},
+	{167.167,2,1},
+	{167.250,2,1},
+	{167.333,2,1},
+	{167.417,2,1},
+	{167.500,2,1},
+}
+for r=0,1 do
+	for i,v in ipairs(extratone2) do
+		local inv=2*(i%2)-1
+		add{v[1]+r*28,1,flip(outExpo),
+			100*inv,'sawtooth',
+			40*inv,'tandigitalz',
+			40*inv,'skewx',
+		plr=2}
+		add{v[1]+r*28,1,flip(outExpo),
+			-200*inv,'tiny',
+		}
+	end
+end
+for i,v in ipairs(longholds) do
+		local inv=2*(i%2)-1
+		local length=v[4]
+		if length==nil then length=1 end
+		set{v[1],400,'bumpyzperiod',400,'bumpyxperiod',200,'bumpyxoffset'}
+		add{v[1],v[3],inOutQuad,
+			400,'bumpyzoffet',
+			400,'bumpyzoffet',
+		}
+		ease{v[1],v[3],inOutQuad,
+			200*inv,'bumpyz',
+			-200*inv,'bumpyx',
+		plr=1}
+	end
 
 end)"
 Type = "ActorFrame"
