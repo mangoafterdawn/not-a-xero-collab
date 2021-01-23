@@ -1286,9 +1286,17 @@ for i=0,1 do
  	}
 end
 --break
-ease{383,1,inOutCirc,
+ease{383,1,outExpo,
+	0,'square',
+}
+add{383,2,outQuad,
 	360,'rotationy',
 	-rad(360),'confusionyoffset',
+}
+add{383,2,inOutCirc,
+	360,'rotationy',
+	-rad(360),'confusionyoffset',
+	100,'reverse',
 }
 --
 
@@ -1337,6 +1345,13 @@ set{62,
 	4,'rskewx',
 	4,'rskewy',
 }]]--
+
+func{447,function()
+	PP[1]:hidden(1)
+	PP[2]:hidden(1)
+	Pp[1]:hidden(1)
+	Pp[2]:hidden(1)
+end}
 
 end)"
 Type = "ActorFrame"
