@@ -334,14 +334,14 @@
 	local function sinOutExpo(x) return math.sin(2*math.pi*inOutExpo(x)) end
 	local function theotherone(x) return .5 - .5 * math.cos(2*math.pi*inOutExpo(x)) end
 
-	ease {291.5, 2, sinOutExpo, 5000, 'bumpyx3'}
-	add {291.5, 2, theotherone, -100, 'reverse3'}
+	ease {291.5, 2, sinOutExpo, 5000, 'bumpyx0'}
+	add {291.5, 2, theotherone, -100, 'reverse0'}
 	ease {292.25, 2, sinOutExpo, 10000, 'bumpyx2'}
 	add {292.25, 2, theotherone, -100, 'reverse2'}
 	ease {293, 2, sinOutExpo, 5000, 'bumpyx1'}
 	add {293, 2, theotherone, -100, 'reverse1'}
-	ease {293.5, 2, sinOutExpo, 5000, 'bumpyx0'}
-	add {293.5, 2, theotherone, -100, 'reverse0'}
+	ease {293.5, 2, sinOutExpo, 5000, 'bumpyx3'}
+	add {293.5, 2, theotherone, -100, 'reverse3'}
 
 	for i = 288, 288.5, 0.166 do
 		ease {i, .5, outExpo, 100 - get 'invert', 'invert'}
