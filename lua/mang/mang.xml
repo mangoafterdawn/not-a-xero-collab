@@ -1378,12 +1378,12 @@ ease{433,7.5,inQuad,
 	0.5,'mask',
 	50,'spiralz',
 	50,'spiralx',
-	300,'zoomz',
+	400,'zoomz',
+	25,'zoom',
 }
 ease{440,5,outCirc,
 	2,'spiralz',
 	2,'spiralx',
-	0,'tiny',
 }
 --[[reset{61.5}
 func{62,function()
