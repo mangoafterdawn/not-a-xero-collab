@@ -1160,6 +1160,11 @@ for i=0,128+64 do
 			-5,'rskewy',
 			-5,'rskewx',
 		plr=2}
+
+		ease{336+i*0.5-0.25,0.25,inCirc,
+			100*switch,'invert',
+		plr=1}
+
 		add{336+i*0.5,0.75,flip(outSine),
 			pie/2*inv,'confusionoffset',
 			5000,'arrowpathgirth',
@@ -1264,7 +1269,7 @@ xerosmile = {
 	{288.000,3,4,length=0.500},
 	{288.500,0,1},
 	{289.500,2,1},
-	{290.500,1,4,length=1.000},
+	{290.500,1,1},
 	{291.500,2,1},
 	{292.500,0,1},
 	{293.250,2,1},
