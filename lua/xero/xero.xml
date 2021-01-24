@@ -38,6 +38,14 @@
 	end
 
 
+	func {0, function()
+		PC[1]:hidden(1)
+		PC[2]:hidden(1)
+	end}
+	{27.5, function()
+		PC[1]:hidden(0)
+		PC[2]:hidden(0)
+	end}
 	funcQ {0, 27.5, function(quad)
 		quad:diffusealpha(0.5)
 		quad:rotationz(2)

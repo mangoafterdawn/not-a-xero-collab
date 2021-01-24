@@ -101,6 +101,19 @@
 	nitg:zoomto(sw,sh)
 	nitg:blend('invertdest')
 	nitg:hidden(1)
+
+	card
+	{0,     27.5,  'intro', 9999999,                            '#687893'}
+	{27,    84,    'Dead Pixels', 9,                            '#990099'}
+	{84,    140,   'I\'m tired.', 7,                            '#648733'}
+	{140,   196,   'I\'m tired. again, as a Treat', 12,         '#B74433'}
+	{196,   248.5, 'Campfire', 11,                              '#F58130'}
+	{252,   279,   'I coded this with Vim', 13,                 '#08A8C3'}
+	{280,   308,   'do a flip', 8,                              '#F8D843'}
+	{323,   335.5, 'The Electric Dragon God Fist', 4,           '#34B6ED'}
+	{336,   432.5, 'Now with Added Invert', 12,                 '#AAEEFF'}
+	{433.5,   445,  'Cosmic Microwave Background Simulator', 1, '#3333AA'}
+
 end)"
 
 Type = "ActorFrame"
@@ -170,31 +183,5 @@ Type = "ActorFrame"
 	<Layer Name = "spritepool[3]" Type = "Sprite"/>
 	<Layer Name = "spritepool[4]" Type = "Sprite"/>
 	<Layer Name = "spritepool[5]" Type = "Sprite"/>
-	<Layer Name = "spritepool[5]" Type = "Sprite"/>
-	<Layer Name = "spritepool[6]" Type = "Sprite"/>
-	<Layer Name = "spritepool[7]" Type = "Sprite"/>
-	<Layer Name = "spritepool[8]" Type = "Sprite"/>
-	<Layer Name = "spritepool[9]" Type = "Sprite"/>
-	<Layer Name = "spritepool[10]" Type = "Sprite"/>
-	<Layer Name = "spritepool[11]" Type = "Sprite"/>
-	<Layer Name = "spritepool[12]" Type = "Sprite"/>
-	<Layer Name = "spritepool[13]" Type = "Sprite"/>
-	<Layer Name = "spritepool[14]" Type = "Sprite"/>
-	<Layer Name = "spritepool[15]" Type = "Sprite"/>
-	<Layer Name = "spritepool[16]" Type = "Sprite"/>
-	<Layer Name = "spritepool[17]" Type = "Sprite"/>
-	<Layer Name = "spritepool[18]" Type = "Sprite"/>
-	<Layer Name = "spritepool[19]" Type = "Sprite"/>
-	<Layer Name = "spritepool[20]" Type = "Sprite"/>
-	<Layer Name = "spritepool[21]" Type = "Sprite"/>
-	<Layer Name = "spritepool[22]" Type = "Sprite"/>
-	<Layer Name = "spritepool[23]" Type = "Sprite"/>
-	<Layer Name = "spritepool[24]" Type = "Sprite"/>
-	<Layer Name = "spritepool[25]" Type = "Sprite"/>
-	<Layer Name = "spritepool[26]" Type = "Sprite"/>
-	<Layer Name = "spritepool[27]" Type = "Sprite"/>
-	<Layer Name = "spritepool[28]" Type = "Sprite"/>
-	<Layer Name = "spritepool[29]" Type = "Sprite"/>
-	<Layer Name = "spritepool[30]" Type = "Sprite"/>
 
 </children></Mods>
