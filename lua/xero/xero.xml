@@ -309,7 +309,7 @@
 
 	set{-999, 0, 'invert'}
 
-	set {280, 400, 'bumpyxperiod', 200, 'bumpyxoffset'}
+	set {280, 400, 'bumpyxperiod', 200, 'bumpyxoffset', -100, 'drawsizeback'}
 
 	ease {279, 2, inverse, 1000, 'bumpyx'}
 	add {281, .5, outExpo, 100, 'flip'}
@@ -327,7 +327,6 @@
 	ease {288.5, 2, inverse, 1000, 'bumpyx'}
 
 	set {290,
-		100, 'arrowpath',
 		9900, 'bumpyxperiod0', 9900, 'bumpyxperiod1', 9900, 'bumpyxperiod2', 9900, 'bumpyxperiod3',
 		-100, 'bumpyxoffset0', -100, 'bumpyxoffset1', -100, 'bumpyxoffset2', -100, 'bumpyxoffset3',
 	}
