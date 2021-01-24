@@ -531,8 +531,6 @@ longholds2 = {
 	{429.500,1,2,0.750},
 	{430.250,2,2,0.750},
 	{431.000,3,2,0.750},
-	{431.750,0,2,0.750},
-	{432.500,2,2,8.000},
 }
 
 extratone = {
@@ -1103,7 +1101,7 @@ set{336,
 	6000,'arrowpathdrawsizeback',
 	0,'rrotz',
 	106,'rzoom',
-	0.9,'opacitydf',
+	0.85,'opacitydf',
 	100,'blendalpha',
 	75,'drawsize',
 	75,'drawsizeback',
@@ -1178,10 +1176,10 @@ for i=0,128+64 do
 			50,'zoomx',
 		plr=2}
 		ease{336+i*0.5,1,popElastic[2][3],
-			-400,'tinyx',
+			-300,'tinyx',
 		}
-		ease{336+i*0.5,1.25,popElastic[2][4],
-			-400,'tinyy',
+		ease{336+i*0.5,1.5,popElastic[2][4],
+			-300,'tinyy',
 		}
 		ease{336+i*0.5,0.4,flip(inExpo),
 			0,'stripespeed',
@@ -1252,110 +1250,6 @@ for i=1,#extratone-1 do
 		10/2*inv,'skewx',
 	}
 end
-for i,v in ipairs(extratone) do
-	local inv=2*(i%2)-1
-	local col=i%4
-	add{v[1],0.25,outExpo,
-		100,'digitaloffset',
-		100,'digitalzoffset',
-		5,'digital',
-		-5,'digitalz',
-		10,'attenuatex',
-	}
-	add{v[1],0.25,pop,
-		0.1,'opacitydf',
-	}
-	ease{v[1],0.25,outExpo,
-		360*(i/#extratone),'rotationy',
-		-rad(360*(i/#extratone)),'confusionyoffset',
-		1*(i/#extratone),'opacitydf',
-	}
-	add{v[1],0.0625,flip(outQuad),
-		1000,'arrowpathgirth',
-		100,'arrowpath',
-	plr=2}
-	
-end
-ease{335,1,outExpo,
-	0,'digital',
- 	0,'digitalz',
- }
-for i=0,1 do 
-	ease{335+i*0.25,1,impulse[0.5],
-		-400,'tiny',
- 	}
-end
---break
-ease{383,1,outExpo,
-	0,'square',
-}
-add{383,2,outQuad,
-	360,'rotationy',
-	-rad(360),'confusionyoffset',
-}
-add{383,2,inOutCirc,
-	360,'rotationy',
-	-rad(360),'confusionyoffset',
-	100,'reverse',
-}
---
-
-set{431,
-	-100,'spiralholds',
-	1000000,'spiralxperiod',
-	1000000,'spiralzperiod',
-	--1000000,'spiralyperiod',
-	500000,'spiralzoffset',
-	4000,'grain',
-	--40,'arrowpathgrain',
-}
-ease{432,1.5,inQuad,
-	10,'stealth',
-	20,'spiralx',
-	20,'spiraly',
-	20,'spiralz',
-	50,'reverse',
-plr=2}
-ease{432,1.5,inQuad,
-	100,'dark',
-	100,'stealth',
-plr=1}
-ease{432,1.5,inQuad,
-	100,'hidden',
-	100,'hidenoteflash',
-	100,'zoom',
-	-500,'tiny',
-	50,'flip',
-	0,'square',
-	0,'z',
-	100,'rzoom',
-	0,'arrowpath',
-}
-ease{433,7.5,inQuad,
-	40,'grain',
-	0.5,'mask',
-}
---[[reset{61.5}
-func{62,function()
-	aquad:diffuse(1,1,1,1)
-end}
-set{62,
-	100,'blendalpha',
-	101,'rzoom',
-	4,'rskewx',
-	4,'rskewy',
-}]]--
-
-func{433,function()
-	Pp[2]:hidden(0)
-end}
-func{447,function()
-	PP[1]:hidden(1)
-	PP[2]:hidden(1)
-	Pp[1]:hidden(1)
-	Pp[2]:hidden(1)
-end}
-
 xerosmile = {
 	{280.000,3,1},
 	{281.000,2,1},
@@ -1417,7 +1311,141 @@ for i,v in ipairs(xerosmile) do
 	end
 end
 
+ease{335,1,outExpo,
+	0,'digital',
+ 	0,'digitalz',
+ }
+for i=0,1 do 
+	ease{335+i*0.25,1,impulse[0.5],
+		-400,'tiny',
+ 	}
+end
+--break
+ease{383,1,outExpo,
+	0,'square',
+}
+add{383,1.5,outSine,
+	360,'rotationy',
+	-rad(360),'confusionyoffset',
+}
+add{383,1.5,inOutSine,
+	360,'rotationy',
+	-rad(360),'confusionyoffset',
+	100,'reverse',
+}
+--
 
+set{431,
+	-100,'spiralholds',
+	1000000,'spiralxperiod',
+	1000000,'spiralzperiod',
+	--1000000,'spiralyperiod',
+	500000,'spiralzoffset',
+	4000,'grain',
+	--40,'arrowpathgrain',
+}
+ease{432,1.5,inQuad,
+	10,'stealth',
+	20,'spiralx',
+	20,'spiraly',
+	20,'spiralz',
+	50,'reverse',
+plr=2}
+ease{432,1.5,inQuad,
+	100,'dark',
+	100,'stealth',
+plr=1}
+ease{432,1.5,inQuad,
+	50,'stealth',
+plr=2}
+ease{432,1.5,inQuad,
+	100,'hidden',
+	100,'hidenoteflash',
+	100,'zoom',
+	-500,'tiny',
+	50,'flip',
+	0,'square',
+	0,'z',
+	100,'rzoom',
+	0,'arrowpath',
+	0,'bumpyx',
+	0,'bumpyz',
+	0,'attenuatex',
+	100,'drawsize',
+}
+ease{433,7.5,inQuad,
+	40,'grain',
+	0.5,'mask',
+	50,'spiralz',
+	50,'spiralx',
+	300,'zoomz',
+}
+ease{440,5,outCirc,
+	2,'spiralz',
+	2,'spiralx',
+	0,'tiny',
+}
+--[[reset{61.5}
+func{62,function()
+	aquad:diffuse(1,1,1,1)
+end}
+set{62,
+	100,'blendalpha',
+	101,'rzoom',
+	4,'rskewx',
+	4,'rskewy',
+}]]--
+
+func{447,function()
+	PP[1]:hidden(1)
+	PP[2]:hidden(1)
+	Pp[1]:hidden(1)
+	Pp[2]:hidden(1)
+end}
+
+for i,v in ipairs(longholds2) do
+	local inv=2*(i%2)-1
+	local length=v[4]
+	if length==nil then length=1 end
+	set{v[1],1000,'bumpyzperiod',1000,'bumpyxperiod',500,'bumpyxoffset',100,'attenuatex'}
+	set{v[1],-90,'squareperiod',plr=1}
+	add{v[1],v[3],outQuad,
+		400,'bumpyzoffset',
+		400,'bumpyxoffset',
+	}
+	ease{v[1],v[3]*2,flip(outQuad),
+		20,'square',
+	plr=1}
+	ease{v[1],v[3],outQuad,
+		-200*inv,'bumpyz',
+		100*inv,'bumpyx',
+	}
+end
+
+for i,v in ipairs(extratone) do
+	local inv=2*(i%2)-1
+	local col=i%4
+	add{v[1],0.25,outExpo,
+		100,'digitaloffset',
+		100,'digitalzoffset',
+		5,'digital',
+		-5,'digitalz',
+		10,'attenuatex',
+	}
+	add{v[1],0.25,pop,
+		0.1,'opacitydf',
+	}
+	ease{v[1],0.25,outExpo,
+		360*(i/#extratone),'rotationy',
+		-rad(360*(i/#extratone)),'confusionyoffset',
+		1*(i/#extratone),'opacitydf',
+	}
+	add{v[1],0.0625,flip(outQuad),
+		1000,'arrowpathgirth',
+		100,'arrowpath',
+	plr=2}
+	
+end
 
 end)"
 Type = "ActorFrame"
