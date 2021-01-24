@@ -222,7 +222,7 @@
 	for i, v in ipairs(P1:GetNoteData(196, 279)) do
 		add {v[1], 1, outBack, toggle == 1 and 100 + OFFSET or -OFFSET, 'rot'}
 		add {v[1], .7, pop, 100, 'rotzoom', -5000, 'tinyz'}
-		add {v[1], 4, pop, toggle * 30, 'rotationz'}
+		if v[1] < 277 then add {v[1], 4, pop, toggle * 30, 'rotationz'} end
 		add {v[1], 3, pop, toggle * 20, 'rotationx'}
 		toggle = -toggle
 	end
@@ -236,6 +236,7 @@
 		PC[2]:hidden(1)
 		Pp[1]:hidden(0)
 		Pp[2]:hidden(0)
+		print'reveal'
 	end}
 	func {279, 1, linear, 7, 0, function(y) masksprite:y(math.floor(scy + y)) end}
 	reset {279, 1, linear, exclude = {'reverse', 'rot', 'mask', 'blendalpha', 'rskewx', 'rskewy', 'rrotx', 'rroty', 'rrotz', 'rposx'}}
@@ -248,9 +249,10 @@
 		PC[1]:hidden(0)
 		PC[2]:hidden(0)
 		Pp[1]:hidden(1)
-		Pp[1]:hidden(1)
+		Pp[2]:hidden(1)
 		PJ[1]:y(scy)
 		PJ[2]:y(scy)
+		print'disreveal'
 		walloftext:hidden(1)
 		fpslimit(aft1, 60, false)
 		masksprite:GetShader():uniform1f('rate', 0.03)
@@ -258,10 +260,9 @@
 	end}
 
 	set {280, 0, 'mask'}
-	set {280, 50, 'reverse', 100, 'spiralholds'}
+	set {280, 50, 'reverse', 100, 'spiralholds', 100, 'splinextype', 100, 'splineytype', 100, 'reversetype'}
 	local x, y, z
-	local offset
-	local beat
+	local offset, beat
 	local function apply(fn, percent)
 		if percent ~= 0 then
 			local nx, ny, nz = fn(offset, beat)
@@ -270,39 +271,112 @@
 			z = z * (1 - 0.01 * percent) + nz * percent * 0.01
 		end
 	end
+	local function reverse(offset)
+		return 0, 212-offset, 0
+	end
 	aux 'circle'
 	local function circle(offset, beat)
-		return 0, math.cos(offset/100 + beat)*212, math.sin(offset/100 + beat)*212
+		return 0, math.cos(offset/200 + beat)*212, math.sin(offset/200 + beat)*212
 	end
+	aux 'normal'
+	local function normal(offset, beat)
+		return 0, offset-212, 0
+	end
+
 	func {
 		280, 308, mode = 'end',
+		m = 'end',
 		function(bea, poptions)
 			beat = bea
 			for pn = 1, 2 do
+				local m = poptions[pn]
 				for which = 0, 39 do
-					local m = poptions[pn]
-					offset = which * 20
-					x, y, z = 0, 212-offset, 0
-					apply(circle, m.circle)
-					P[pn]:SetXSpline(which, -1, x, offset, -1)
-					P[pn]:SetYSpline(which, -1, y, offset, -1)
-					P[pn]:SetZSpline(which, -1, z, offset, -1)
+					for col = 0, 3 do
+						offset = which * 18
+						x, y, z = 0, 212-offset, 0
+						apply(circle, m.circle)
+						apply(normal, m.normal)
+						apply(wheel, m.wheel)
+						P[pn]:SetXSpline(which, col, x, offset, -1)
+						P[pn]:SetYSpline(which, col, y, offset, -1)
+						P[pn]:SetZSpline(which, col, z, offset, -1)
+					end
 				end
 			end
 		end,
 		persist = false,
 	}
-	ease {280, 5, outBounce, 100, 'circle'}
+
+	set{-999, 0, 'invert'}
+
+	set {280, 400, 'bumpyxperiod', 200, 'bumpyxoffset'}
+
+	ease {279, 2, inverse, 1000, 'bumpyx'}
+	add {281, .5, outExpo, 100, 'flip'}
+	add {281.5, .5, outExpo, -100, 'flip'}
+	ease {281.5, 2, inverse, -1000, 'bumpyx'}
+	add {283.5, .5, outExpo, 100, 'flip'}
+	add {284, .5, outExpo, -100, 'flip'}
+	add {284.5, .5, outExpo, 100, 'flip'}
+	ease {284.5, 2, inverse, 1000, 'bumpyx'}
+	add {286.5, .5, outExpo, -100, 'flip'}
+	add {286.75, .5, outExpo, 100, 'flip'}
+	add {287, .5, outExpo, -100, 'flip'}
+
+
+
+
+	for i = 288, 288.5, 0.166 do
+		ease {i, .5, outExpo, 100 - get 'invert', 'invert'}
+	end
+
+	for i = 298, 298.5, 0.166 do
+		ease {i, .5, outExpo, 100 - get 'invert', 'invert'}
+	end
+
+	for i = 297, 297.5, 0.166 do
+		ease {i, .5, outExpo, 100 - get 'invert', 'invert'}
+	end
+
+	for v = 298.5, 298.5 + 4 * 1/3, 1/3 do
+		add {v, 0.2, outExpo, 36, 'rotationz', -62.8, 'confusionoffset', 20, 'flip'}
+	end
+
+	--ease {280, 308, mode='end', instant, 10000, 'arrowpath'}
+	--[[
+	for i, v in ipairs(P1:GetNoteData(280, 308)) do
+		local h = math.random(0, 90) * 0.01
+		funcQ {v[1], 308 - v[1], function(q)
+			q:croptop(h)
+			q:cropbottom(.95-h)
+		end, function(q, p)
+			q:y(scy - .05 * sh * outExpo(p))
+		end}{v[1], 308 - v[1], function(q)
+			q:croptop(h + .05)
+			q:cropbottom(.90 - h)
+		end, function(q, p)
+			q:y(scy + .05 * sh * outExpo(p))
+		end}
+		if v[1] <= 300 then
+			ease {v[1], 1, outExpo, -100 - get('reverse'..v[2]), 'reverse'..v[2]}
+		end
+	end
+	]]
+
+
+	ease {300, 8, bell, 20, 'rotationy'}
+	ease {298, 7, inOutQuad, 100, 'circle'}
 	ease {304, 4, linear, 0, 'circle'}
+	ease {305, 4, linear, 1000, 'square'}
+	ease {306, 1, outExpo, 1000, 'bumpyx', -99, 'bumpyxperiod', .6, 'mask'}
 	reset {307.999}
-	func {309, function()
+	func {308, function()
 		fpslimit(aft1, 60)
 		for pn = 1, 2 do
-			P[pn]:ResetXSplines(-1)
-			P[pn]:ResetYSplines(-1)
-			P[pn]:ResetZSplines(-1)
+			GAMESTATE:ApplyModifiers('splinexreset,splineyreset,splinezreset')
 		end
-	end}
+	end,
+	persist = 5}
 end)"
 	Type = "ActorFrame"
 ><children>

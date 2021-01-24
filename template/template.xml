@@ -311,7 +311,7 @@
 		end
 		
 		if self.mode or self.m then
-			if type(self[2]) == number then
+			if type(self[2]) == 'number' then
 				self[2] = self[2] - self[1]
 			end
 			if type(self.persist) == 'number' then
