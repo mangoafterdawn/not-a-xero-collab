@@ -322,9 +322,27 @@
 	add {286.5, .5, outExpo, -100, 'flip'}
 	add {286.75, .5, outExpo, 100, 'flip'}
 	add {287, .5, outExpo, -100, 'flip'}
+	add {290.5, 1.5, outQuad, 400, 'rot'}
+	ease {290.3, 1.5, bell, 200, 'rotzoom'}
+	ease {288.5, 2, inverse, 1000, 'bumpyx'}
 
+	set {290,
+		100, 'arrowpath',
+		9900, 'bumpyxperiod0', 9900, 'bumpyxperiod1', 9900, 'bumpyxperiod2', 9900, 'bumpyxperiod3',
+		-100, 'bumpyxoffset0', -100, 'bumpyxoffset1', -100, 'bumpyxoffset2', -100, 'bumpyxoffset3',
+	}
 
+	local function sinOutExpo(x) return math.sin(2*math.pi*inOutExpo(x)) end
+	local function theotherone(x) return .5 - .5 * math.cos(2*math.pi*inOutExpo(x)) end
 
+	ease {291.5, 2, sinOutExpo, 5000, 'bumpyx3'}
+	add {291.5, 2, theotherone, -100, 'reverse3'}
+	ease {292.25, 2, sinOutExpo, 10000, 'bumpyx2'}
+	add {292.25, 2, theotherone, -100, 'reverse2'}
+	ease {293, 2, sinOutExpo, 5000, 'bumpyx1'}
+	add {293, 2, theotherone, -100, 'reverse1'}
+	ease {293.5, 2, sinOutExpo, 5000, 'bumpyx0'}
+	add {293.5, 2, theotherone, -100, 'reverse0'}
 
 	for i = 288, 288.5, 0.166 do
 		ease {i, .5, outExpo, 100 - get 'invert', 'invert'}
@@ -341,6 +359,7 @@
 	for v = 298.5, 298.5 + 4 * 1/3, 1/3 do
 		add {v, 0.2, outExpo, 36, 'rotationz', -62.8, 'confusionoffset', 20, 'flip'}
 	end
+
 
 	--ease {280, 308, mode='end', instant, 10000, 'arrowpath'}
 	--[[
@@ -369,6 +388,8 @@
 	ease {304, 4, linear, 0, 'circle'}
 	ease {305, 4, linear, 1000, 'square'}
 	ease {306, 1, outExpo, 1000, 'bumpyx', -99, 'bumpyxperiod', .6, 'mask'}
+
+
 	reset {307.999}
 	func {308, function()
 		fpslimit(aft1, 60)
