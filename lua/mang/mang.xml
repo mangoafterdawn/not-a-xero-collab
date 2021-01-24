@@ -531,8 +531,6 @@ longholds2 = {
 	{429.500,1,2,0.750},
 	{430.250,2,2,0.750},
 	{431.000,3,2,0.750},
-	{431.750,0,2,0.750},
-	{432.500,2,2,8.000},
 }
 
 extratone = {
@@ -1103,7 +1101,7 @@ set{336,
 	6000,'arrowpathdrawsizeback',
 	0,'rrotz',
 	106,'rzoom',
-	0.9,'opacitydf',
+	0.85,'opacitydf',
 	100,'blendalpha',
 	75,'drawsize',
 	75,'drawsizeback',
@@ -1178,10 +1176,10 @@ for i=0,128+64 do
 			50,'zoomx',
 		plr=2}
 		ease{336+i*0.5,1,popElastic[2][3],
-			-400,'tinyx',
+			-300,'tinyx',
 		}
-		ease{336+i*0.5,1.25,popElastic[2][4],
-			-400,'tinyy',
+		ease{336+i*0.5,1.5,popElastic[2][4],
+			-300,'tinyy',
 		}
 		ease{336+i*0.5,0.4,flip(inExpo),
 			0,'stripespeed',
@@ -1252,30 +1250,67 @@ for i=1,#extratone-1 do
 		10/2*inv,'skewx',
 	}
 end
-for i,v in ipairs(extratone) do
-	local inv=2*(i%2)-1
-	local col=i%4
-	add{v[1],0.25,outExpo,
-		100,'digitaloffset',
-		100,'digitalzoffset',
-		5,'digital',
-		-5,'digitalz',
-		10,'attenuatex',
+xerosmile = {
+	{280.000,3,1},
+	{281.000,2,1},
+	{281.500,1,1},
+	{282.500,0,1},
+	{283.500,3,1},
+	{284.000,0,1},
+	{284.500,1,1},
+	{285.500,2,1},
+	{286.500,1,4,length=0.500},
+	{287.000,0,1},
+	{288.000,3,4,length=0.500},
+	{288.500,0,1},
+	{289.500,2,1},
+	{290.500,1,4,length=1.000},
+	{291.500,2,1},
+	{292.500,0,1},
+	{293.250,2,1},
+	{294.000,1,1},
+	{294.500,3,1},
+	{295.500,2,2,length=0.500},
+	{296.000,3,1},
+	{297.000,1,1},
+	{297.500,2,1},
+	{298.000,0,1},
+	{298.500,3,1},
+	{298.833,0,1},
+	{299.250,3,1},
+	{299.667,0,1},
+	{300.000,3,1},
+	{301.000,0,1},
+	{301.500,1,1},
+	{302.000,2,1},
+	{302.500,3,1},
+	{303.000,1,1},
+	{303.500,2,1},
+	{304.000,0,4,length=4.000},
+}
+incs=0
+for i,v in ipairs(xerosmile) do
+	local inv1=2*(i%2)-1
+	ease{v[1],1,flip(outExpo),
+		-300,'tiny',
+		40*inv1,'skewx',
+		-40*inv1,'noteskewy',
+		400,'attenuatex',
+		1000,'attenuatez',
 	}
-	add{v[1],0.25,pop,
-		0.1,'opacitydf',
-	}
-	ease{v[1],0.25,outExpo,
-		360*(i/#extratone),'rotationy',
-		-rad(360*(i/#extratone)),'confusionyoffset',
-		1*(i/#extratone),'opacitydf',
-	}
-	add{v[1],0.0625,flip(outQuad),
-		1000,'arrowpathgirth',
-		100,'arrowpath',
-	plr=2}
-	
+	if v[3]==2 or v[3]==4 then
+		for k=0,3 do
+			incs=incs+1
+			local inv=2*(incs%2)-1
+			ease{v[1]+k*0.333/2,1,flip(outExpo),
+				-100,'tiny',
+				-100*inv,'skewx',
+				100*inv,'noteskewy',
+			}
+		end
+	end
 end
+
 ease{335,1,outExpo,
 	0,'digital',
  	0,'digitalz',
@@ -1289,11 +1324,11 @@ end
 ease{383,1,outExpo,
 	0,'square',
 }
-add{383,2,outQuad,
+add{383,1.5,outSine,
 	360,'rotationy',
 	-rad(360),'confusionyoffset',
 }
-add{383,2,inOutCirc,
+add{383,1.5,inOutSine,
 	360,'rotationy',
 	-rad(360),'confusionyoffset',
 	100,'reverse',
@@ -1321,6 +1356,9 @@ ease{432,1.5,inQuad,
 	100,'stealth',
 plr=1}
 ease{432,1.5,inQuad,
+	50,'stealth',
+plr=2}
+ease{432,1.5,inQuad,
 	100,'hidden',
 	100,'hidenoteflash',
 	100,'zoom',
@@ -1330,10 +1368,22 @@ ease{432,1.5,inQuad,
 	0,'z',
 	100,'rzoom',
 	0,'arrowpath',
+	0,'bumpyx',
+	0,'bumpyz',
+	0,'attenuatex',
+	100,'drawsize',
 }
 ease{433,7.5,inQuad,
 	40,'grain',
 	0.5,'mask',
+	50,'spiralz',
+	50,'spiralx',
+	300,'zoomz',
+}
+ease{440,5,outCirc,
+	2,'spiralz',
+	2,'spiralx',
+	0,'tiny',
 }
 --[[reset{61.5}
 func{62,function()
@@ -1352,6 +1402,50 @@ func{447,function()
 	Pp[1]:hidden(1)
 	Pp[2]:hidden(1)
 end}
+
+for i,v in ipairs(longholds2) do
+	local inv=2*(i%2)-1
+	local length=v[4]
+	if length==nil then length=1 end
+	set{v[1],1000,'bumpyzperiod',1000,'bumpyxperiod',500,'bumpyxoffset',100,'attenuatex'}
+	set{v[1],-90,'squareperiod',plr=1}
+	add{v[1],v[3],outQuad,
+		400,'bumpyzoffset',
+		400,'bumpyxoffset',
+	}
+	ease{v[1],v[3]*2,flip(outQuad),
+		20,'square',
+	plr=1}
+	ease{v[1],v[3],outQuad,
+		-200*inv,'bumpyz',
+		100*inv,'bumpyx',
+	}
+end
+
+for i,v in ipairs(extratone) do
+	local inv=2*(i%2)-1
+	local col=i%4
+	add{v[1],0.25,outExpo,
+		100,'digitaloffset',
+		100,'digitalzoffset',
+		5,'digital',
+		-5,'digitalz',
+		10,'attenuatex',
+	}
+	add{v[1],0.25,pop,
+		0.1,'opacitydf',
+	}
+	ease{v[1],0.25,outExpo,
+		360*(i/#extratone),'rotationy',
+		-rad(360*(i/#extratone)),'confusionyoffset',
+		1*(i/#extratone),'opacitydf',
+	}
+	add{v[1],0.0625,flip(outQuad),
+		1000,'arrowpathgirth',
+		100,'arrowpath',
+	plr=2}
+	
+end
 
 end)"
 Type = "ActorFrame"
