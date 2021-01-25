@@ -1292,32 +1292,35 @@ xerosmile = {
 	{303.000,1,1},
 	{303.500,2,1},
 	{304.000,0,4,length=4.000},
+	{304.500,0,4,},
+	{305.000,0,4,},
+	{305.500,0,4,},
+	{306.000,0,4,},
+	{306.500,0,4,},
+	{307.000,0,4,},
+	{307.500,0,4,},
 }
 incs=0
-ease{279,1,inExpo,
-	50,'rskewy',
-	50,'rskewx',
-}
+func{280,function()
+	aft1:hidden(0)
+end}
 for i,v in ipairs(xerosmile) do
-	func{v[1],function()
-		aft1:hidden(0)
-	end}
+	func{v[1], function() fpslimit(aft1, 60) end}
+	func{v[1]+0.5, function() fpslimit(aft1, 60, false) end}
 	local inv1=2*(i%2)-1
 	add{v[1],1,outExpo,
-		45/2,'rrotz',
+		45/4,'rrotz',
 	}
 	ease{v[1],1,flip(outExpo),
+		-100,'rzoom',
 		-300,'tiny',
-		-4000,'tinyz',
+		-30000,'tinyz',
 		40*inv1,'skewx',
 		-40*inv1,'noteskewy',
 		400,'attenuatex',
 		1000,'attenuatez',
-		90,'rzoom',
-		10,'rrotx',
-		10*inv1,'rroty',
-		100,'blendalpha',
-		0.5,'mask',
+		90,'blendalpha',
+		0.25,'mask',
 	}
 	if v[3]==2 or v[3]==4 then
 		for k=0,3 do
@@ -1327,7 +1330,6 @@ for i,v in ipairs(xerosmile) do
 				-100,'tiny',
 				-100*inv,'skewx',
 				100*inv,'noteskewy',
-				90,'rzoom',
 			}
 		end
 	end
