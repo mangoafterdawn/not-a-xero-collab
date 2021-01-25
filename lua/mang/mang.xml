@@ -1101,7 +1101,7 @@ set{336,
 	6000,'arrowpathdrawsizeback',
 	0,'rrotz',
 	106,'rzoom',
-	0.85,'opacitydf',
+	0.82,'opacitydf',
 	100,'blendalpha',
 	75,'drawsize',
 	75,'drawsizeback',
@@ -1294,14 +1294,30 @@ xerosmile = {
 	{304.000,0,4,length=4.000},
 }
 incs=0
+ease{279,1,inExpo,
+	50,'rskewy',
+	50,'rskewx',
+}
 for i,v in ipairs(xerosmile) do
+	func{v[1],function()
+		aft1:hidden(0)
+	end}
 	local inv1=2*(i%2)-1
+	add{v[1],1,outExpo,
+		45/2,'rrotz',
+	}
 	ease{v[1],1,flip(outExpo),
 		-300,'tiny',
+		-4000,'tinyz',
 		40*inv1,'skewx',
 		-40*inv1,'noteskewy',
 		400,'attenuatex',
 		1000,'attenuatez',
+		90,'rzoom',
+		10,'rrotx',
+		10*inv1,'rroty',
+		100,'blendalpha',
+		0.5,'mask',
 	}
 	if v[3]==2 or v[3]==4 then
 		for k=0,3 do
@@ -1311,6 +1327,7 @@ for i,v in ipairs(xerosmile) do
 				-100,'tiny',
 				-100*inv,'skewx',
 				100*inv,'noteskewy',
+				90,'rzoom',
 			}
 		end
 	end
@@ -1329,11 +1346,11 @@ end
 ease{383,1,outExpo,
 	0,'square',
 }
-add{383,1.5,outSine,
+add{383,2,outCirc,
 	360,'rotationy',
 	-rad(360),'confusionyoffset',
 }
-add{383,1.5,inOutSine,
+add{383,2,inOutCirc,
 	360,'rotationy',
 	-rad(360),'confusionyoffset',
 	100,'reverse',
