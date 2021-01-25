@@ -108,12 +108,12 @@
 	{0,     27.5,  'intro', 9999999,                            '#687893'}
 	{27,    84,    'Dead Pixels', 11,                           '#990099'}
 	{84,    140,   'I\'m tired.', 9,                            '#648733'}
-	{140,   196,   'I\'m tired. again, as a Treat', 16,         '#B74433'}
-	{196,   248.5, 'Campfire', 14,                              '#F58130'}
-	{252,   279,   'I coded this with Vim', 17,                 '#08A8C3'}
+	{140,   196,   'I\'m tired. again, as a Treat', 11,         '#B74433'}
+	{196,   248.5, 'Campfire', 13,                              '#F58130'}
+	{252,   279,   'I coded this with Vim', 14,                 '#08A8C3'}
 	{280,   308,   'do a flip', 10,                             '#F8D843'}
-	{323,   335.5, 'The Electric Dragon God Fist', 6,           '#34B6ED'}
-	{336,   432.5, 'Now with Added Invert', 16,                 '#AAEEFF'}
+	{323,   335.5, 'The Electric Dragon God Fist', 7,           '#34B6ED'}
+	{336,   432.5, 'Now with Added Invert', 14,                 '#AAEEFF'}
 	{433.5,   445,  'Cosmic Microwave Background Simulator', 1, '#3333AA'}
 
 end)"
