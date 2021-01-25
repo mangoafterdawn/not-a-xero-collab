@@ -6,25 +6,44 @@
 #ARTISTTRANSLIT:;
 #GENRE:;
 #CREDIT:;
-#MUSIC:EOS.ogg;
 #BANNER:banner.png;
 #BACKGROUND:;
+#LYRICSPATH:;
 #CDTITLE:;
+#MUSIC:EOS.ogg;
+#OFFSET:-1.989;
 #SAMPLESTART:113.989;
 #SAMPLELENGTH:16.333;
 #SELECTABLE:YES;
-#OFFSET:-1.989;
 #BPMS:0.000=180.000;
 #STOPS:;
 #BGCHANGES:;
-#FGCHANGES:0.000=template/main.xml=1.000=0=0=1;
-//--------------- dance-single - mang + XeroOl ----------------
+
+//The majority of simfile scripts and visual effects are stored here.
+#FGCHANGES:0.000=template/main.xml=1.000=0=0=1=====,
+;
+
+#SPELLCARDS:0.000=27.500=intro=9999999=0.408^0.471^0.576^1.000
+27.000=84.000=Dead Pixels=9=0.600^0.000^0.600^1.000
+84.000=140.000=I'm tired.=7=0.392^0.529^0.200^1.000
+140.000=196.000=I'm tired. again, as a Treat=12=0.718^0.267^0.200^1.000
+196.000=248.500=Campfire=11=0.961^0.506^0.188^1.000
+252.000=279.000=I coded this with Vim=13=0.031^0.659^0.765^1.000
+280.000=308.000=do a flip=8=0.973^0.847^0.263^1.000
+323.000=335.500=The Electric Dragon God Fist=4=0.204^0.714^0.929^1.000
+336.000=432.500=Now with Added Invert=12=0.667^0.933^1.000^1.000
+433.500=445.000=Cosmic Microwave Background Simulator=1=0.200^0.200^0.667^1.000
+;
+
+#KEYSOUNDS:;
+
+//---------------dance-single - mang + XeroOl----------------
 #NOTES:
      dance-single:
      mang + XeroOl:
      Challenge:
      13:
-     0.673,0.962,0,0.173,0.263:
+     0.662,0.962,0.000,0.173,0.236:
 0000
 0000
 0000
@@ -557,7 +576,7 @@
 0100
 0000
 0001
-0010
+1000
 0001
 0000
 0100
@@ -1413,3 +1432,4 @@
 0000
 0000
 ;
+
