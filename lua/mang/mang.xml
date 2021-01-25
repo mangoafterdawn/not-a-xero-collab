@@ -858,8 +858,8 @@ ease{82,2,inOutQuad,
 }
 
 ease{84,2,inOutSine,
-	get('rskewx')/2,'rskewx',
-	get('rskewy')/2,'rskewy',
+	get('rskewx')/6,'rskewx',
+	get('rskewy')/6,'rskewy',
 	99,'rzoom',
 }
 for i,v in ipairs(ebam) do
