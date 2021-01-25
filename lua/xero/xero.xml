@@ -244,7 +244,6 @@
 		PC[2]:hidden(1)
 		Pp[1]:hidden(0)
 		Pp[2]:hidden(0)
-		print'reveal'
 	end}
 	func {279, 1, linear, 7, 0, function(y) masksprite:y(math.floor(scy + y)) end}
 	reset {279, 1, linear, exclude = {'reverse', 'rot', 'mask', 'blendalpha', 'rskewx', 'rskewy', 'rrotx', 'rroty', 'rrotz', 'rposx'}}
@@ -260,7 +259,6 @@
 		Pp[2]:hidden(1)
 		PJ[1]:y(scy)
 		PJ[2]:y(scy)
-		print'disreveal'
 		walloftext:hidden(1)
 		fpslimit(aft1, 60, false)
 		masksprite:GetShader():uniform1f('rate', 0.03)
@@ -395,7 +393,7 @@
 	ease {304, 4, linear, 0, 'circle'}
 	ease {305, 4, linear, 1000, 'square'}
 	ease {306, 1, outExpo, 1000, 'bumpyx', -99, 'bumpyxperiod', .6, 'mask'}
-
+	ease {304, 0, outCubic, 0, 'blendalpha'}
 
 	reset {307.999}
 	func {308, function()
