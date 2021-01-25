@@ -685,7 +685,7 @@ setdefault{
 plr=2}
 setdefault{
 	80,'blendalpha',
-	1500,'wireframegirth',
+	750,'wireframegirth',
 	0.1,'rrotz',
 	0.5,'rskewy',
 	0.5,'rskewx',
@@ -858,8 +858,9 @@ ease{82,2,inOutQuad,
 }
 
 ease{84,2,inOutSine,
-	get('rskewx')/8,'rskewx',
-	get('rskewy')/8,'rskewy'
+	get('rskewx')/2,'rskewx',
+	get('rskewy')/2,'rskewy',
+	99,'rzoom',
 }
 for i,v in ipairs(ebam) do
 	local inv=2*(i%2)-1
@@ -957,8 +958,12 @@ for i,v in ipairs(bass) do
 	local switch=(i+1)%2
 	local switch2=(i)%2
 	local inv=2*(i%2)-1
+	ease{v[1],0.5,outExpo,
+		--0.1,'opacitycd',
+	}
 	ease{v[1],0.5,flip(outExpo),
-		0.75,'mask'
+		0.2,'mask',
+		100,'blendalpha',
 	}
 	ease{v[1]-0.1,0.5,flip(outExpo),
 		-200,'tiny',
@@ -1064,13 +1069,14 @@ ease{138.5,1.25,inExpo,
 }
 ease{138.5,2,inOutCirc,
 	0,'rskewx',
-	5,'rposy',
-	25/2,'rroty',
+	10,'rposy',
+	10,'rroty',
 }
 
 ease{84-0.5,1,inOutCirc,
 	0,'opacitycb',
-	1,'opacitycd',
+	2.25,'xmod',
+	0.65,'opacitycd',
 }
 func{138.5,function()
 	plus:diffusealpha(0)
@@ -1223,6 +1229,7 @@ for i=0,128+64 do
 		end
 	end
 end
+
 set{308,
 	--100,'arrowpath',
 	--200,'digital',
@@ -1231,7 +1238,11 @@ set{308,
 	-20,'digitalperiod',
 	0,'digitalzoffset',
 	1000,'digitaloffset',
+	50,'boost'
 	--50,'arrowpathgrain',
+}
+set{330,
+	0,'boost'
 }
 ease{308,30,inCirc,
 	95,'blendalpha',
