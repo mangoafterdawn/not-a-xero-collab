@@ -1321,7 +1321,6 @@ for i,v in ipairs(xerosmile) do
 		-40*inv1,'noteskewy',
 		400,'attenuatex',
 		1000,'attenuatez',
-		90,'blendalpha',
 		0.25,'mask',
 	}
 	if v[3]==2 or v[3]==4 then
@@ -1336,6 +1335,9 @@ for i,v in ipairs(xerosmile) do
 		end
 	end
 end
+ease{301,3,inOutQuad,
+	0,'blendalpha'
+}
 
 ease{335,1,outExpo,
 	0,'digital',
