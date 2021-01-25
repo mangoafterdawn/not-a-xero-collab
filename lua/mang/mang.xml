@@ -851,6 +851,7 @@ ease{82,2,inOutQuad,
 	0,'bumpyx',
 	0,'bumpyz',
 	120,'drawsize',
+	0,'arrowpath',
 	120,'arrowpathdrawsize',
 	80,'drawsizeback',
 	80,'arrowpathdrawsizeback',
@@ -940,7 +941,7 @@ for i,v in ipairs(longholds) do
 	local inv=2*(i%2)-1
 	local length=v[4]
 	if length==nil then length=1 end
-	set{v[1],400,'bumpyzperiod',400,'bumpyxperiod',200,'bumpyxoffset'}
+	set{v[1],1000,'bumpyzperiod',1000,'bumpyxperiod',500,'bumpyxoffset'}
 	add{v[1],v[3],inOutQuad,
 		400,'bumpyzoffset',
 		400,'bumpyxoffset',
@@ -957,11 +958,11 @@ for i,v in ipairs(bass) do
 	local switch2=(i)%2
 	local inv=2*(i%2)-1
 	ease{v[1],0.5,flip(outExpo),
-		1.5,'mask'
+		0.75,'mask'
 	}
 	ease{v[1]-0.1,0.5,flip(outExpo),
 		-200,'tiny',
-		-50,'flip',
+		0,'flip',
 	}
 	if i%2==0 then 
 		ease{v[1]+0.25,1,outQuad,
@@ -1011,17 +1012,20 @@ for i,v in ipairs(bass) do
 		30,'rskewy',
 	}
 	ease{v[1]-0.1,1.75,popElastic[2][4],
+		100,'arrowpath',
+	plr=1}
+	ease{v[1]-0.1,1.75,popElastic[2][4],
 		-100,'tinyx',
-		1000,'arrowpathgirth',
+		500,'arrowpathgirth',
 	}
 	ease{v[1]-0.1,0.5,flip(outExpo),
-		200*inv,'tanbumpy',
+		100*inv,'tanbumpy',
 		5*inv,'rotationz',
 		-40*inv,'noteskewx',
 		-100,'tinyy',
 	}
 	if v[1]>=140 then 
-		ease{v[1],0.5,outExpo,
+		ease{v[1],1,flip(outExpo),
 			100*switch,'flip',
 		}
 	else
@@ -1039,11 +1043,13 @@ for i=0,12 do
 	if i%3==0 then
 		ease{84+i*8,12,inOutSine,
 			45/1.5,'rotationx',
+			-rad(45/1.5),'confusionxoffset',
 			-45/1.2,'rotationy',
 		}
 	else
 		ease{84+i*8+6,12,inOutSine,
 			-45/1.5,'rotationx',
+			rad(45/1.5),'confusionxoffset',
 			45/1.2,'rotationy',
 		}
 	end
@@ -1054,7 +1060,7 @@ ease{138.5,1.25,inBack,
 	0,'tiny',
 }
 ease{138.5,1.25,inExpo,
-	100,'flip',
+	--100,'flip',
 }
 ease{138.5,2,inOutCirc,
 	0,'rskewx',
