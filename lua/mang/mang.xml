@@ -858,8 +858,9 @@ ease{82,2,inOutQuad,
 }
 
 ease{84,2,inOutSine,
-	get('rskewx')/8,'rskewx',
-	get('rskewy')/8,'rskewy'
+	get('rskewx')/2,'rskewx',
+	get('rskewy')/2,'rskewy',
+	99,'rzoom',
 }
 for i,v in ipairs(ebam) do
 	local inv=2*(i%2)-1
@@ -957,8 +958,12 @@ for i,v in ipairs(bass) do
 	local switch=(i+1)%2
 	local switch2=(i)%2
 	local inv=2*(i%2)-1
+	ease{v[1],0.5,outExpo,
+		--0.1,'opacitycd',
+	}
 	ease{v[1],0.5,flip(outExpo),
-		0.75,'mask'
+		0.2,'mask',
+		100,'blendalpha',
 	}
 	ease{v[1]-0.1,0.5,flip(outExpo),
 		-200,'tiny',
@@ -1064,13 +1069,14 @@ ease{138.5,1.25,inExpo,
 }
 ease{138.5,2,inOutCirc,
 	0,'rskewx',
-	5,'rposy',
-	25/2,'rroty',
+	10,'rposy',
+	10,'rroty',
 }
 
 ease{84-0.5,1,inOutCirc,
 	0,'opacitycb',
-	1,'opacitycd',
+	2.25,'xmod',
+	0.75,'opacitycd',
 }
 func{138.5,function()
 	plus:diffusealpha(0)
