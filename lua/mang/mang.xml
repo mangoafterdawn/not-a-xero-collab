@@ -1309,12 +1309,14 @@ for i,v in ipairs(xerosmile) do
 	func{v[1]+0.5, function() fpslimit(aft1, 60, false) end}
 	local inv1=2*(i%2)-1
 	add{v[1],1,outExpo,
-		45/4,'rrotz',
+		45/8,'rrotz',
+	}
+	ease{v[1],2,flip(outQuad),
+		-1000,'tinyz',
 	}
 	ease{v[1],1,flip(outExpo),
 		-100,'rzoom',
 		-300,'tiny',
-		-30000,'tinyz',
 		40*inv1,'skewx',
 		-40*inv1,'noteskewy',
 		400,'attenuatex',
