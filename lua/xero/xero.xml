@@ -74,7 +74,7 @@
 		masksprite:zoom(1)
 		masksprite:SetTextureFiltering(false)
 	end}
-	ease {58, 81, m=e, linear, 0.6, 'mask'}
+	ease {58, 81, m=e, linear, 0.5, 'mask'}
 	ease {82, 2, function(x) return math.cos(x * 4 * math.pi) end , 1, 'mask'}
 	set {84, 0, 'mask'}
 	func {84, function()
@@ -127,6 +127,7 @@
 		ease {v[1], 4, pop, -30, 'dark'..v[2], -100, 'stealth'..v[2], plr = pn}
 		pn = 3 - pn
 	end
+	ease {25, 4, outCubic, 0, 'stealth'}
 	reset {25, 4, inOutQuad}
 	
 	local coldata = {
@@ -180,10 +181,18 @@
 		walloftext:glow(0.522, .376, .294, 0)
 	end, persist = false}
 	set {196, .65, 'mask', 60, 'blendalpha', -5, 'rposy'}
+	func {196, function()
+		Pj[1]:hidden(0)
+		Pj[2]:hidden(0)
+	end}
+	func {280, function()
+		Pj[1]:hidden(1)
+		Pj[2]:hidden(1)
+	end}
 
 	ease {221, 1, linear, 75, 'blendalpha', .70, 'mask', 1, 'rskewx', -.5, 'rskewy', 0, 'rrotx', 0, 'rroty', 0, 'rrotz', 0, 'rposx'}
 	ease {234, 1, linear, 80, 'blendalpha', .75, 'mask', -.2, 'rskewx', -1, 'rskewy'}
-	ease {266, 1, linear, 80, 'blendalpha', .8, 'mask', -1, 'rskewx', -2, 'rskewy', 4, 'rposy'}
+	ease {266, 1, linear, 75, 'blendalpha', .8, 'mask', -1, 'rskewx', -2, 'rskewy', 4, 'rposy'}
 	ease {276, 1, linear, 100, 'blendalpha', .45, 'mask', 0, 'rskewx', 0, 'rskewy'}
 	definemod {
 		'rot', 'rotzoom',
@@ -266,7 +275,7 @@
 	end}
 
 	set {280, 0, 'mask'}
-	set {280, 50, 'reverse', 100, 'spiralholds', 100, 'splinextype', 100, 'splineytype', 100, 'reversetype'}
+	set {298, 50, 'reverse', 100, 'spiralholds', 100, 'splinextype', 100, 'splineytype', 100, 'reversetype'}
 	local x, y, z
 	local offset, beat
 	local function apply(fn, percent)
@@ -284,13 +293,9 @@
 	local function circle(offset, beat)
 		return 0, math.cos(offset/200 + beat)*212, math.sin(offset/200 + beat)*212
 	end
-	aux 'normal'
-	local function normal(offset, beat)
-		return 0, offset-212, 0
-	end
 
 	func {
-		280, 308, mode = 'end',
+		298, 308, mode = 'end',
 		m = 'end',
 		function(bea, poptions)
 			beat = bea
@@ -301,8 +306,6 @@
 						offset = which * 18
 						x, y, z = 0, 212-offset, 0
 						apply(circle, m.circle)
-						apply(normal, m.normal)
-						apply(wheel, m.wheel)
 						P[pn]:SetXSpline(which, col, x, offset, -1)
 						P[pn]:SetYSpline(which, col, y, offset, -1)
 						P[pn]:SetZSpline(which, col, z, offset, -1)
@@ -403,6 +406,10 @@
 		end
 	end,
 	persist = 5}
+	func {433.5, function()
+		PC[1]:hidden(1)
+		PC[2]:hidden(1)
+	end}
 end)"
 	Type = "ActorFrame"
 ><children>

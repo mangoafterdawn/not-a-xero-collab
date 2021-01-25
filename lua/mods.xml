@@ -2,7 +2,9 @@
 	-- judgment / combo proxies
 	for pn = 1, 2 do
 		setupJudgeProxy(PJ[pn], P[pn]:GetChild('Judgment'), pn)
+		setupJudgeProxy(Pj[pn], P[pn]:GetChild('Judgment'), pn)
 		setupJudgeProxy(PC[pn], P[pn]:GetChild('Combo'), pn)
+		Pj[pn]:hidden(1)
 	end
 	-- player proxies
 	for pn = 1, #PP do
@@ -183,5 +185,8 @@ Type = "ActorFrame"
 	<Layer Name = "spritepool[3]" Type = "Sprite"/>
 	<Layer Name = "spritepool[4]" Type = "Sprite"/>
 	<Layer Name = "spritepool[5]" Type = "Sprite"/>
+
+	<Layer Type = "ActorProxy" Name = "Pj[1]"/>
+	<Layer Type = "ActorProxy" Name = "Pj[2]"/>
 
 </children></Mods>
